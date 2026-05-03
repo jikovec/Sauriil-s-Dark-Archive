@@ -1,0 +1,4 @@
+status,context,standard_name,planned_svg_path,planned_png_48_path,notes
+example,places,folder,linux/Sauriil-Dark-Archive/scalable/places/folder.svg,linux/Sauriil-Dark-Archive/48x48/places/folder.png,Example row only; future standard place icon.
+example,devices,drive-harddisk,linux/Sauriil-Dark-Archive/scalable/devices/drive-harddisk.svg,linux/Sauriil-Dark-Archive/48x48/devices/drive-harddisk.png,Example row only; future device icon.
+example,actions,document-open,linux/Sauriil-Dark-Archive/scalable/actions/document-open.svg,linux/Sauriil-Dark-Archive/48x48/actions/document-open.png,Example row only; future action icon.

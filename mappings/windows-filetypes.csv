@@ -1,0 +1,3 @@
+status,extension,prog_id,registry_path,planned_icon_path,scope,notes
+example,.example,Example.FileType,HKCU:\Software\Classes\Example.FileType\DefaultIcon,windows/ico/filetypes/example-file.ico,user,Example row only; missing icon is an expected gap.
+example,.archive-example,Example.ArchiveFile,HKCU:\Software\Classes\Example.ArchiveFile\DefaultIcon,windows/ico/filetypes/example-archive.ico,user,Example row only; do not apply until a real ProgID and icon exist.

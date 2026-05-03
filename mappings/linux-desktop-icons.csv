@@ -1,0 +1,3 @@
+status,desktop_file_name,desktop_source_hint,user_override_path,icon_name,planned_icon_path,notes
+example,org.example.App.desktop,/usr/share/applications/org.example.App.desktop,linux/desktop-overrides/org.example.App.desktop,sauriil-example-app,linux/Sauriil-Dark-Archive/scalable/apps/sauriil-example-app.svg,Example row only; future .desktop override must be user-scope only.
+example,org.example.Terminal.desktop,/usr/share/applications/org.example.Terminal.desktop,linux/desktop-overrides/org.example.Terminal.desktop,sauriil-example-terminal,linux/Sauriil-Dark-Archive/scalable/apps/sauriil-example-terminal.svg,Example row only; do not edit /usr/share/applications.

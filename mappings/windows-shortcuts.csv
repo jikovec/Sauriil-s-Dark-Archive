@@ -1,0 +1,3 @@
+status,target_kind,display_name,shortcut_hint,planned_icon_path,backup_hint,notes
+example,shortcut,Example Editor,%APPDATA%\Microsoft\Windows\Start Menu\Programs\Example Editor.lnk,windows/ico/apps/example-editor.ico,copy shortcut before changing icon,Example row only; future icon file is intentionally missing in this skeleton.
+example,terminal-profile,Example Terminal Profile,%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json,windows/ico/apps/example-terminal.ico,copy settings.json before editing,Example row only; use Windows Terminal profile icon property later.
