@@ -1,4 +1,8 @@
+DOCUMENTATION/Dark Archive Cross-Platform Ic.md
+DOCUMENTATION/Dark Archive theme build handoff.md
 README.md
+VERSIONS/WinRAR SauriilDarkArchive HQ 48x48.zip
+VERSIONS/v0.0.1 Sauriil-Dark-Archive.zip
 docs/asset-guidelines.md
 docs/icon-name-mapping.md
 docs/linux-plan.md
