@@ -1,0 +1,13 @@
+status,icon_name,batch,source_master_path,windows_context,linux_context,concept,notes
+required,sauriil-terminal,v0.0.2,source/master/raster/sauriil-terminal.png,apps,apps,Terminal app,Black steel terminal slab with cyan prompt and blood-red seal; new generated raster source.
+required,sauriil-browser,v0.0.2,source/master/raster/sauriil-browser.png,apps,apps,Browser app,Occult navigation orb/compass with cyan web arcs; no copied browser logo.
+required,sauriil-code-editor,v0.0.2,source/master/raster/sauriil-code-editor.png,apps,apps,Code editor app,Forged editor codex with angle-bracket glyphs; no copied IDE mark.
+required,sauriil-file-manager,v0.0.2,source/master/raster/sauriil-file-manager.png,apps,apps,File manager app,Archive cabinet/folder hybrid with gold trim; no copied file-manager mark.
+required,folder,v0.0.2,source/master/raster/folder.png,folders,places,Standard folder,Dark ash folder with red ritual seal and gold filigree.
+required,folder-documents,v0.0.2,source/master/raster/folder-documents.png,folders,places,Documents folder,Dark folder with parchment document leaves.
+required,folder-downloads,v0.0.2,source/master/raster/folder-downloads.png,folders,places,Downloads folder,Dark folder with cyan downward transfer glyph.
+required,user-home,v0.0.2,source/master/raster/user-home.png,folders,places,Home folder,Folder/home keep silhouette with cyan hearth slit.
+required,application-zip,v0.0.2,source/master/raster/application-zip.png,filetypes,mimetypes,ZIP archive MIME,Black archive tablet with ZIP label and red compression bands.
+required,application-x-rar,v0.0.2,source/master/raster/application-x-rar.png,filetypes,mimetypes,RAR archive MIME,Black archive tablet with RAR label; visually related to prior WinRAR archive direction but newly drawn.
+required,text-x-script,v0.0.2,source/master/raster/text-x-script.png,filetypes,mimetypes,Script text MIME,Ash parchment script sheet with shell/hashbang glyph.
+required,text-x-python,v0.0.2,source/master/raster/text-x-python.png,filetypes,mimetypes,Python text MIME,Ash parchment PY sheet with abstract cyan serpent-ribbon; no copied Python logo.

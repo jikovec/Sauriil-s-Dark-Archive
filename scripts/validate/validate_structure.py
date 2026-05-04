@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the Sauriil Dark Archive skeleton repository structure."""
+"""Validate the Sauriil Dark Archive repository structure."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -98,6 +98,15 @@ REQUIRED_FILES = [
     "scripts/rollback/linux_rollback_user_theme.sh",
 ]
 
+REQUIRED_V002_FILES = [
+    "docs/v0.0.2-asset-batch.md",
+    "proof/v0.0.2-source-asset-inventory.md",
+    "proof/v0.0.2-generated-assets.md",
+    "proof/v0.0.2-contact-sheet-report.md",
+    "proof/v0.0.2-validation-report.md",
+    "mappings/icon-assets.csv",
+]
+
 
 def repo_root() -> Path:
     return Path(__file__).resolve().parents[2]
@@ -119,6 +128,7 @@ def main() -> int:
     root = repo_root()
     missing_dirs = [d for d in REQUIRED_DIRS if not (root / d).is_dir()]
     missing_files = [f for f in REQUIRED_FILES if not (root / f).is_file()]
+    missing_v002_files = [f for f in REQUIRED_V002_FILES if not (root / f).is_file()]
 
     image_files = [
         rel(path, root)
@@ -126,6 +136,11 @@ def main() -> int:
         if path.is_file()
         and path.suffix.lower() in IMAGE_EXTENSIONS
         and ".zip" not in path.name.lower()
+    ]
+
+    unsafe_image_files = [
+        item for item in image_files
+        if item.startswith("/usr/share/") or item.startswith("~") or ".." in Path(item).parts
     ]
 
     windows_apply = (root / "scripts/apply/windows_apply_icons.ps1").read_text(encoding="utf-8")
@@ -136,10 +151,13 @@ def main() -> int:
         "## Structure validation",
         "",
         f"- Required directories checked: {len(REQUIRED_DIRS)}",
-        f"- Required files checked: {len(REQUIRED_FILES)}",
+        f"- Required base files checked: {len(REQUIRED_FILES)}",
+        f"- v0.0.2 proof/docs checked: {len(REQUIRED_V002_FILES)}",
         f"- Missing directories: {len(missing_dirs)}",
-        f"- Missing files: {len(missing_files)}",
-        f"- Final icon/image assets found: {len(image_files)}",
+        f"- Missing base files: {len(missing_files)}",
+        f"- Missing v0.0.2 files: {len(missing_v002_files)}",
+        f"- Image/icon assets found: {len(image_files)}",
+        f"- Unsafe image paths found: {len(unsafe_image_files)}",
         f"- Apply-capable scripts dry-run gated: {'yes' if gated_scripts_ok else 'no'}",
         "",
     ]
@@ -148,19 +166,23 @@ def main() -> int:
         lines.extend(f"- `{item}`" for item in missing_dirs)
         lines.append("")
     if missing_files:
-        lines.append("### Missing files")
+        lines.append("### Missing base files")
         lines.extend(f"- `{item}`" for item in missing_files)
         lines.append("")
-    if image_files:
-        lines.append("### Disallowed image assets")
-        lines.extend(f"- `{item}`" for item in image_files)
+    if missing_v002_files:
+        lines.append("### Missing v0.0.2 files")
+        lines.extend(f"- `{item}`" for item in missing_v002_files)
+        lines.append("")
+    if unsafe_image_files:
+        lines.append("### Unsafe image paths")
+        lines.extend(f"- `{item}`" for item in unsafe_image_files)
         lines.append("")
     if not gated_scripts_ok:
         lines.append("### Script gate failure")
         lines.append("- Apply-capable scripts do not contain the required explicit apply gates.")
         lines.append("")
 
-    ok = not missing_dirs and not missing_files and not image_files and gated_scripts_ok
+    ok = not missing_dirs and not missing_files and not missing_v002_files and not unsafe_image_files and gated_scripts_ok
     lines.append(f"Result: {'PASS' if ok else 'FAIL'}")
     lines.append("")
     append_report(root, lines)
@@ -171,13 +193,18 @@ def main() -> int:
         for item in missing_dirs:
             print(f"  - {item}")
     if missing_files:
-        print("Missing files:")
+        print("Missing base files:")
         for item in missing_files:
             print(f"  - {item}")
-    if image_files:
-        print("Disallowed image assets:")
-        for item in image_files:
+    if missing_v002_files:
+        print("Missing v0.0.2 files:")
+        for item in missing_v002_files:
             print(f"  - {item}")
+    if unsafe_image_files:
+        print("Unsafe image paths:")
+        for item in unsafe_image_files:
+            print(f"  - {item}")
+    print(f"Image/icon assets found: {len(image_files)}")
     return 0 if ok else 1
 
 

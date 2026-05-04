@@ -1,3 +1,5 @@
 status,target_kind,display_name,shortcut_hint,planned_icon_path,backup_hint,notes
-example,shortcut,Example Editor,%APPDATA%\Microsoft\Windows\Start Menu\Programs\Example Editor.lnk,windows/ico/apps/example-editor.ico,copy shortcut before changing icon,Example row only; future icon file is intentionally missing in this skeleton.
-example,terminal-profile,Example Terminal Profile,%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json,windows/ico/apps/example-terminal.ico,copy settings.json before editing,Example row only; use Windows Terminal profile icon property later.
+required,shortcut,Sauriil Terminal,user-specific shortcut or Windows Terminal profile,windows/ico/apps/sauriil-terminal.ico,copy shortcut/profile settings before changing icon,Asset generated only; no live shortcut modified.
+required,shortcut,Sauriil Browser,user-specific browser shortcut,windows/ico/apps/sauriil-browser.ico,copy shortcut before changing icon,Asset generated only; no browser identity mark copied.
+required,shortcut,Sauriil Code Editor,user-specific editor shortcut,windows/ico/apps/sauriil-code-editor.ico,copy shortcut before changing icon,Asset generated only; no VS Code or other IDE mark copied.
+required,shortcut,Sauriil File Manager,user-specific file manager shortcut,windows/ico/apps/sauriil-file-manager.ico,copy shortcut before changing icon,Asset generated only; no live shortcut modified.

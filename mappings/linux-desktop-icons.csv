@@ -1,3 +1,5 @@
 status,desktop_file_name,desktop_source_hint,user_override_path,icon_name,planned_icon_path,notes
-example,org.example.App.desktop,/usr/share/applications/org.example.App.desktop,linux/desktop-overrides/org.example.App.desktop,sauriil-example-app,linux/Sauriil-Dark-Archive/scalable/apps/sauriil-example-app.svg,Example row only; future .desktop override must be user-scope only.
-example,org.example.Terminal.desktop,/usr/share/applications/org.example.Terminal.desktop,linux/desktop-overrides/org.example.Terminal.desktop,sauriil-example-terminal,linux/Sauriil-Dark-Archive/scalable/apps/sauriil-example-terminal.svg,Example row only; do not edit /usr/share/applications.
+required,sauriil-terminal.desktop,user-specific .desktop override,,sauriil-terminal,linux/Sauriil-Dark-Archive/48x48/apps/sauriil-terminal.png,Icon asset generated; .desktop override not installed.
+required,sauriil-browser.desktop,user-specific .desktop override,,sauriil-browser,linux/Sauriil-Dark-Archive/48x48/apps/sauriil-browser.png,Icon asset generated; .desktop override not installed.
+required,sauriil-code-editor.desktop,user-specific .desktop override,,sauriil-code-editor,linux/Sauriil-Dark-Archive/48x48/apps/sauriil-code-editor.png,Icon asset generated; .desktop override not installed.
+required,sauriil-file-manager.desktop,user-specific .desktop override,,sauriil-file-manager,linux/Sauriil-Dark-Archive/48x48/apps/sauriil-file-manager.png,Icon asset generated; .desktop override not installed.

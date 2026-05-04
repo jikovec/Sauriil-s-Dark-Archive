@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """Export Linux PNG fallback sizes from real PNG source assets.
 
-This skeleton script does not generate placeholder art. It processes only PNG
-sources inside the repository and writes only with --apply.
+The exporter is asset-manifest aware for v0.0.2. When
+mappings/icon-assets.csv exists, only assets assigned to the requested
+linux_context are exported. This keeps apps, places, and MIME icons in their
+correct XDG theme directories.
 """
 from __future__ import annotations
 
 import argparse
+import csv
 from pathlib import Path
 import sys
 
@@ -22,6 +25,31 @@ def ensure_inside_repo(root: Path, path: Path) -> None:
     path.resolve().relative_to(root.resolve())
 
 
+def manifest_sources(root: Path, context: str) -> list[Path]:
+    manifest = root / "mappings" / "icon-assets.csv"
+    if not manifest.is_file():
+        return []
+
+    sources: list[Path] = []
+    with manifest.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            contexts = [item.strip() for item in row.get("linux_context", "").split(";") if item.strip()]
+            if context not in contexts:
+                continue
+            source_value = row.get("source_master_path", "").strip()
+            if not source_value:
+                continue
+            source = root / source_value
+            if source.is_file():
+                sources.append(source)
+    return sorted(set(sources))
+
+
+def fallback_sources(root: Path) -> list[Path]:
+    source_dirs = [root / "source" / "png" / "256", root / "source" / "master" / "raster"]
+    return sorted({path for directory in source_dirs for path in directory.glob("*.png")})
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Export Linux PNG fallback assets.")
     parser.add_argument("--context", default="apps", choices=sorted(VALID_CONTEXTS), help="icon theme context")
@@ -29,14 +57,13 @@ def main() -> int:
     args = parser.parse_args()
 
     root = repo_root()
-    source_dirs = [root / "source" / "png" / "256", root / "source" / "master" / "raster"]
-    sources = sorted({path for directory in source_dirs for path in directory.glob("*.png")})
+    sources = manifest_sources(root, args.context) or fallback_sources(root)
     svg_sources = sorted((root / "source" / "svg" / "full-color").glob("*.svg"))
 
     if svg_sources:
         print("export_linux_png_fallbacks: SVG sources found; convert SVGs with Inkscape/CairoSVG in a later toolchain step")
     if not sources:
-        print("export_linux_png_fallbacks: no PNG source assets found in source/png/256 or source/master/raster")
+        print("export_linux_png_fallbacks: no PNG source assets found for requested context")
         return 0
 
     try:
@@ -45,7 +72,7 @@ def main() -> int:
         print("export_linux_png_fallbacks: Pillow is required when PNG source assets exist", file=sys.stderr)
         return 2
 
-    print(f"export_linux_png_fallbacks: found {len(sources)} source PNG(s)")
+    print(f"export_linux_png_fallbacks: found {len(sources)} source PNG(s) for {args.context}")
     for source in sources:
         ensure_inside_repo(root, source)
         with Image.open(source).convert("RGBA") as image:

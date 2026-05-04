@@ -6,52 +6,76 @@ Mapping CSV rows use `status` to control validation severity:
 
 - `example`: documentation sample only; missing assets are expected gaps.
 - `optional`: future optional target; missing assets are reported as gaps.
-- `required`: real target; missing assets fail validation.
+- `required`: real generated target; missing assets fail validation.
 - `active`: installed or apply-ready target; missing assets fail validation.
 - `deprecated`: ignored by apply scripts.
 
-The starter CSV files contain only `example` rows.
+v0.0.2 replaces the skeleton example rows with required rows only where the referenced generated assets exist.
+
+## Asset routing manifest
+
+`mappings/icon-assets.csv` is the v0.0.2 routing manifest used by the conversion scripts.
+
+Important fields:
+
+- `icon_name`
+- `source_master_path`
+- `windows_context`
+- `linux_context`
+- `concept`
+- `notes`
+
+The Windows and Linux exporters use this file to avoid exporting every source PNG into every context.
 
 ## Windows shortcut mapping
 
-`mappings/windows-shortcuts.csv` documents planned shortcut and profile icon targets. It does not scan the live system and does not assume installed applications.
+`mappings/windows-shortcuts.csv` documents generated app `.ico` targets. It does not scan or modify the live system.
 
-Important fields:
+v0.0.2 rows:
 
-- `shortcut_hint`: human-readable future path or settings file hint.
-- `planned_icon_path`: repository-relative future `.ico` path.
-- `backup_hint`: manual or scripted backup expectation.
+```txt
+sauriil-terminal
+sauriil-browser
+sauriil-code-editor
+sauriil-file-manager
+```
 
 ## Windows file type mapping
 
-`mappings/windows-filetypes.csv` documents selected future file type icon overrides.
+`mappings/windows-filetypes.csv` documents selected generated filetype `.ico` targets. Registry paths are planning/dry-run data only.
 
-Important fields:
+v0.0.2 rows:
 
-- `extension`
-- `prog_id`
-- `registry_path`
-- `planned_icon_path`
-- `scope`
-
-The scripts read planned registry paths from the CSV and print backup/export commands in dry-run mode.
+```txt
+.zip  -> application-zip
+.rar  -> application-x-rar
+.ps1  -> text-x-script
+.py   -> text-x-python
+```
 
 ## Windows drive mapping
 
-`mappings/windows-drives.csv` documents future drive icon overrides. HKLM paths require explicit apply mode, registry export, and administrative awareness.
+`mappings/windows-drives.csv` is header-only in v0.0.2 because no drive icons are included.
 
 ## Linux desktop icon mapping
 
-`mappings/linux-desktop-icons.csv` documents future `.desktop` overrides. Only user-scope override paths are allowed. Do not edit `/usr/share/applications`.
+`mappings/linux-desktop-icons.csv` maps generated app icon names to Linux PNG fallback paths. `.desktop` overrides are not installed in v0.0.2.
 
 ## Linux MIME mapping
 
-`mappings/linux-mimetypes.csv` maps MIME types to icon-theme names and future SVG/PNG asset paths.
+`mappings/linux-mimetypes.csv` maps MIME names to generated PNG fallback paths. SVG paths are blank in v0.0.2 because no true vector sources exist.
 
 ## Linux standard names mapping
 
-`mappings/linux-standard-names.csv` tracks standard names for contexts such as `apps`, `places`, `devices`, `actions`, and `status`.
+`mappings/linux-standard-names.csv` maps generated place icons:
+
+```txt
+folder
+folder-documents
+folder-downloads
+user-home
+```
 
 ## Missing assets
 
-Missing assets are reported in `proof/known-gaps.md`. Missing future assets are not fatal for `example` rows. Missing assets fail validation only when the row status is `required` or `active`.
+Missing assets are reported in `proof/known-gaps.md`. Missing required/active assets fail validation.

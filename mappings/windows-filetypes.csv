@@ -1,3 +1,5 @@
 status,extension,prog_id,registry_path,planned_icon_path,scope,notes
-example,.example,Example.FileType,HKCU:\Software\Classes\Example.FileType\DefaultIcon,windows/ico/filetypes/example-file.ico,user,Example row only; missing icon is an expected gap.
-example,.archive-example,Example.ArchiveFile,HKCU:\Software\Classes\Example.ArchiveFile\DefaultIcon,windows/ico/filetypes/example-archive.ico,user,Example row only; do not apply until a real ProgID and icon exist.
+required,.zip,CompressedFolder,HKCU:\Software\Classes\CompressedFolder\DefaultIcon,windows/ico/filetypes/application-zip.ico,user,Asset generated only; registry not modified.
+required,.rar,WinRAR,HKCU:\Software\Classes\WinRAR\DefaultIcon,windows/ico/filetypes/application-x-rar.ico,user,Asset generated only; registry not modified.
+required,.ps1,Sauriil.ScriptFile,HKCU:\Software\Classes\Sauriil.ScriptFile\DefaultIcon,windows/ico/filetypes/text-x-script.ico,user,Planning row for script-file icon asset; registry not modified.
+required,.py,Python.File,HKCU:\Software\Classes\Python.File\DefaultIcon,windows/ico/filetypes/text-x-python.ico,user,Asset generated only; registry not modified.

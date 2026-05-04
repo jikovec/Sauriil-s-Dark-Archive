@@ -37,7 +37,7 @@ def main() -> int:
         meta = parser["Icon Theme"]
         expected = {
             "Name": "Sauriil Dark Archive",
-            "Comment": "Dark fantasy archive-machine icon theme skeleton",
+            "Comment": "Dark fantasy archive-machine icon theme",
             "Inherits": "breeze,hicolor",
         }
         for key, value in expected.items():

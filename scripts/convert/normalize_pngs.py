@@ -57,8 +57,9 @@ def main() -> int:
                 output = output_dir / source.name
                 canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
                 safe = max(1, int(size * 0.86))
-                resized = image.copy()
-                resized.thumbnail((safe, safe), Image.LANCZOS)
+                scale = safe / max(image.width, image.height)
+                target = (max(1, int(round(image.width * scale))), max(1, int(round(image.height * scale))))
+                resized = image.resize(target, Image.LANCZOS)
                 x = (size - resized.width) // 2
                 y = (size - resized.height) // 2
                 canvas.alpha_composite(resized, (x, y))

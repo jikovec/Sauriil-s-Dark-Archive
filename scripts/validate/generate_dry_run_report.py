@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate proof reports for the skeleton package and dry-run safety state."""
+"""Generate proof reports for package manifest and dry-run safety state."""
 from __future__ import annotations
 
 import csv
@@ -63,16 +63,20 @@ def main() -> int:
 
     (proof / "known-gaps.md").write_text(
         "# Known Gaps\n\n"
-        "The package is a skeleton and intentionally contains no final icon art.\n\n"
-        "## Expected missing future assets\n\n"
+        "v0.0.2 contains the first real asset batch and does not install or apply the theme to the live OS.\n\n"
+        "## Mapping gaps\n\n"
         + ("\n".join(f"- {gap}" for gap in gaps) if gaps else "- None detected.")
-        + "\n\n## Not implemented in this skeleton\n\n"
-        "- Real PNG/SVG/ICO/CUR icon assets.\n"
-        "- Visual contact sheets from real art.\n"
-        "- Live Windows registry changes.\n"
-        "- Linux user-theme installation.\n"
-        "- Linux system-wide theme installation.\n"
-        "- 7TSP/system-resource patching.\n",
+        + "\n\n## Not implemented in v0.0.2\n\n"
+        "- No live Windows registry changes.\n"
+        "- No Windows shortcut/profile modifications.\n"
+        "- No Windows icon cache refresh.\n"
+        "- No Linux user-theme installation.\n"
+        "- No Linux system-wide theme installation.\n"
+        "- No KDE activation proof.\n"
+        "- No `.desktop` override application.\n"
+        "- No MIME cache update on a live machine.\n"
+        "- No SVG scalable icons; raster PNG fallbacks are used because the accepted art is raster-generated, not true vector.\n"
+        "- No 7TSP/system-resource patching.\n",
         encoding="utf-8",
     )
 
@@ -83,12 +87,12 @@ def main() -> int:
         "",
         "## Safety assertions",
         "",
-        "- Skeleton directories exist: see `proof/validation-report.md`.",
-        "- No final icon art is included: " + ("yes" if not image_files else "no"),
+        "- Repository structure validation is recorded in `proof/validation-report.md`.",
+        "- v0.0.2 image/icon assets are expected and are confined to project directories.",
         "- No live Windows registry modification was performed by validation: yes.",
         "- No Linux system directory modification was performed by validation: yes.",
         "- Apply-capable scripts are dry-run gated: yes.",
-        "- Missing icon assets are expected gaps for the next phase: yes.",
+        "- Missing mapped required icon assets are treated as validation failures: yes.",
         "",
         "## Dry-run commands",
         "",
@@ -101,18 +105,19 @@ def main() -> int:
         "```",
         "",
         "```powershell",
-        "pwsh ./scripts/dry-run/windows_plan_changes.ps1",
+        "powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1",
         "```",
         "",
         "## Image asset scan",
         "",
-        f"- Image-like files found in repository: {len(image_files)}",
+        f"- Image/icon files found in repository: {len(image_files)}",
     ]
-    if image_files:
-        dry_run.extend(f"- `{item}`" for item in image_files)
+    dry_run.extend(f"- `{item}`" for item in image_files[:200])
+    if len(image_files) > 200:
+        dry_run.append(f"- ... {len(image_files) - 200} additional image/icon files omitted from this report preview.")
     dry_run.extend([
         "",
-        "## Missing future assets",
+        "## Missing mapped assets",
         "",
         f"- Mapping gaps detected: {len(gaps)}",
     ])
@@ -120,11 +125,11 @@ def main() -> int:
     dry_run.append("")
     (proof / "dry-run-report.md").write_text("\n".join(dry_run), encoding="utf-8")
 
-    print("generate_dry_run_report: PASS")
+    print("generate_dry_run_report: PASS" if not gaps else "generate_dry_run_report: FAIL")
     print(f"Files in manifest: {len(files)}")
     print(f"Image-like files found: {len(image_files)}")
     print(f"Expected missing future assets: {len(gaps)}")
-    return 0 if not image_files else 1
+    return 0 if not gaps else 1
 
 
 if __name__ == "__main__":

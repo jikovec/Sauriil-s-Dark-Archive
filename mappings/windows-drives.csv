@@ -1,2 +1,1 @@
 status,drive_letter,registry_path,planned_icon_path,scope,notes
-example,X,HKLM:\Software\Microsoft\Windows\CurrentVersion\Explorer\DriveIcons\X\DefaultIcon,windows/ico/drives/example-drive.ico,machine,Example row only; HKLM writes require explicit apply mode and backup.

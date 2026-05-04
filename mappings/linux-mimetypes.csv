@@ -1,3 +1,5 @@
 status,mime_type,icon_name,planned_svg_path,planned_png_48_path,notes
-example,application/x-example,application-x-example,linux/Sauriil-Dark-Archive/scalable/mimetypes/application-x-example.svg,linux/Sauriil-Dark-Archive/48x48/mimetypes/application-x-example.png,Example row only; missing assets are expected in this skeleton.
-example,application/x-rar,application-x-rar,linux/Sauriil-Dark-Archive/scalable/mimetypes/application-x-rar.svg,linux/Sauriil-Dark-Archive/48x48/mimetypes/application-x-rar.png,Example row only; use real art in a later asset phase.
+required,application/zip,application-zip,,linux/Sauriil-Dark-Archive/48x48/mimetypes/application-zip.png,PNG fallback generated; no SVG because raster source is not true vector.
+required,application/x-rar,application-x-rar,,linux/Sauriil-Dark-Archive/48x48/mimetypes/application-x-rar.png,PNG fallback generated; no SVG because raster source is not true vector.
+required,text/x-script,text-x-script,,linux/Sauriil-Dark-Archive/48x48/mimetypes/text-x-script.png,PNG fallback generated; no SVG because raster source is not true vector.
+required,text/x-python,text-x-python,,linux/Sauriil-Dark-Archive/48x48/mimetypes/text-x-python.png,PNG fallback generated; no SVG because raster source is not true vector.

@@ -1,6 +1,6 @@
 [Icon Theme]
 Name=Sauriil Dark Archive
-Comment=Dark fantasy archive-machine icon theme skeleton
+Comment=Dark fantasy archive-machine icon theme
 Inherits=breeze,hicolor
 Directories=scalable/apps,scalable/mimetypes,scalable/places,scalable/devices,scalable/status,scalable/actions,scalable/symbolic,16x16/apps,16x16/mimetypes,16x16/places,16x16/devices,16x16/status,16x16/actions,24x24/apps,24x24/mimetypes,24x24/places,24x24/devices,24x24/status,24x24/actions,32x32/apps,32x32/mimetypes,32x32/places,32x32/devices,32x32/status,32x32/actions,48x48/apps,48x48/mimetypes,48x48/places,48x48/devices,48x48/status,48x48/actions,64x64/apps,64x64/mimetypes,64x64/places,64x64/devices,64x64/status,64x64/actions,128x128/apps,128x128/mimetypes,128x128/places,128x128/devices,128x128/status,128x128/actions,256x256/apps,256x256/mimetypes,256x256/places,256x256/devices,256x256/status,256x256/actions
 
@@ -55,210 +55,210 @@ Context=Actions
 
 [16x16/apps]
 Type=Fixed
-Size=1616
+Size=16
 Context=Applications
 
 [16x16/mimetypes]
 Type=Fixed
-Size=1616
+Size=16
 Context=MimeTypes
 
 [16x16/places]
 Type=Fixed
-Size=1616
+Size=16
 Context=Places
 
 [16x16/devices]
 Type=Fixed
-Size=1616
+Size=16
 Context=Devices
 
 [16x16/status]
 Type=Fixed
-Size=1616
+Size=16
 Context=Status
 
 [16x16/actions]
 Type=Fixed
-Size=1616
+Size=16
 Context=Actions
 
 [24x24/apps]
 Type=Fixed
-Size=2424
+Size=24
 Context=Applications
 
 [24x24/mimetypes]
 Type=Fixed
-Size=2424
+Size=24
 Context=MimeTypes
 
 [24x24/places]
 Type=Fixed
-Size=2424
+Size=24
 Context=Places
 
 [24x24/devices]
 Type=Fixed
-Size=2424
+Size=24
 Context=Devices
 
 [24x24/status]
 Type=Fixed
-Size=2424
+Size=24
 Context=Status
 
 [24x24/actions]
 Type=Fixed
-Size=2424
+Size=24
 Context=Actions
 
 [32x32/apps]
 Type=Fixed
-Size=3232
+Size=32
 Context=Applications
 
 [32x32/mimetypes]
 Type=Fixed
-Size=3232
+Size=32
 Context=MimeTypes
 
 [32x32/places]
 Type=Fixed
-Size=3232
+Size=32
 Context=Places
 
 [32x32/devices]
 Type=Fixed
-Size=3232
+Size=32
 Context=Devices
 
 [32x32/status]
 Type=Fixed
-Size=3232
+Size=32
 Context=Status
 
 [32x32/actions]
 Type=Fixed
-Size=3232
+Size=32
 Context=Actions
 
 [48x48/apps]
 Type=Fixed
-Size=4848
+Size=48
 Context=Applications
 
 [48x48/mimetypes]
 Type=Fixed
-Size=4848
+Size=48
 Context=MimeTypes
 
 [48x48/places]
 Type=Fixed
-Size=4848
+Size=48
 Context=Places
 
 [48x48/devices]
 Type=Fixed
-Size=4848
+Size=48
 Context=Devices
 
 [48x48/status]
 Type=Fixed
-Size=4848
+Size=48
 Context=Status
 
 [48x48/actions]
 Type=Fixed
-Size=4848
+Size=48
 Context=Actions
 
 [64x64/apps]
 Type=Fixed
-Size=6464
+Size=64
 Context=Applications
 
 [64x64/mimetypes]
 Type=Fixed
-Size=6464
+Size=64
 Context=MimeTypes
 
 [64x64/places]
 Type=Fixed
-Size=6464
+Size=64
 Context=Places
 
 [64x64/devices]
 Type=Fixed
-Size=6464
+Size=64
 Context=Devices
 
 [64x64/status]
 Type=Fixed
-Size=6464
+Size=64
 Context=Status
 
 [64x64/actions]
 Type=Fixed
-Size=6464
+Size=64
 Context=Actions
 
 [128x128/apps]
 Type=Fixed
-Size=128128
+Size=128
 Context=Applications
 
 [128x128/mimetypes]
 Type=Fixed
-Size=128128
+Size=128
 Context=MimeTypes
 
 [128x128/places]
 Type=Fixed
-Size=128128
+Size=128
 Context=Places
 
 [128x128/devices]
 Type=Fixed
-Size=128128
+Size=128
 Context=Devices
 
 [128x128/status]
 Type=Fixed
-Size=128128
+Size=128
 Context=Status
 
 [128x128/actions]
 Type=Fixed
-Size=128128
+Size=128
 Context=Actions
 
 [256x256/apps]
 Type=Fixed
-Size=256256
+Size=256
 Context=Applications
 
 [256x256/mimetypes]
 Type=Fixed
-Size=256256
+Size=256
 Context=MimeTypes
 
 [256x256/places]
 Type=Fixed
-Size=256256
+Size=256
 Context=Places
 
 [256x256/devices]
 Type=Fixed
-Size=256256
+Size=256
 Context=Devices
 
 [256x256/status]
 Type=Fixed
-Size=256256
+Size=256
 Context=Status
 
 [256x256/actions]
 Type=Fixed
-Size=256256
+Size=256
 Context=Actions

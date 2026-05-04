@@ -1,24 +1,32 @@
 # Proof Checklist
 
-## Skeleton validation
+## v0.0.2 validation
 
 Run:
 
 ```bash
+python scripts/convert/normalize_pngs.py --apply
+python scripts/convert/export_windows_ico.py --context apps --apply
+python scripts/convert/export_windows_ico.py --context filetypes --apply
+python scripts/convert/export_windows_ico.py --context folders --apply
+python scripts/convert/export_linux_png_fallbacks.py --context apps --apply
+python scripts/convert/export_linux_png_fallbacks.py --context mimetypes --apply
+python scripts/convert/export_linux_png_fallbacks.py --context places --apply
+python scripts/test-render/render_contact_sheet.py --apply
 python scripts/validate/validate_structure.py
 python scripts/validate/validate_mappings.py
 python scripts/validate/validate_index_theme.py
 python scripts/validate/generate_dry_run_report.py
 ```
 
-Expected result: all required directories and files exist, `index.theme` is structurally valid, mapping CSVs contain safe example rows, and no final icon art is present.
+Expected result: generated assets exist, mappings point only to existing required assets, `index.theme` is structurally valid, and no system install/apply action occurs.
 
 ## Script dry-run proof
 
-Run:
+Run where available:
 
 ```powershell
-pwsh ./scripts/dry-run/windows_plan_changes.ps1
+powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1
 ```
 
 Run:
@@ -34,30 +42,33 @@ Expected result: commands print planned changes only. No registry write, no `/us
 Check:
 
 ```bash
-find . -type f | sort > proof/package-manifest.txt
+python scripts/validate/generate_dry_run_report.py
 ```
 
-Expected result: package contains docs, mapping CSVs, scripts, `.gitkeep` files, proof files, and `index.theme`; no PNG/SVG/ICO/CUR image assets.
+Expected result: `proof/package-manifest.txt` and `proof/known-gaps.md` are regenerated and required mapping gaps are zero.
 
 ## Windows no-live-registry-modification proof
 
-Only dry-run scripts are executed during skeleton validation. The apply script refuses without `-Apply`, and no `.reg` export from the live machine is bundled.
+Only dry-run scripts are executed during validation. The apply script refuses without `-Apply`, and no `.reg` export from the live machine is bundled.
 
 ## Linux no-system-directory-modification proof
 
-Only dry-run scripts are executed during skeleton validation. The Linux install script refuses without `--apply` and contains explicit `/usr/share` refusal checks.
+Only dry-run scripts are executed during validation. The Linux install script refuses without `--apply` and contains explicit `/usr/share` refusal checks.
 
-## Apply-gated script proof
+## Contact sheet proof
 
-Inspect:
+Confirm these files exist:
 
-- `scripts/apply/windows_apply_icons.ps1`
-- `scripts/apply/linux_install_user_theme.sh`
-- `scripts/rollback/windows_rollback_icons.ps1`
-- `scripts/rollback/linux_rollback_user_theme.sh`
+```txt
+source/master/contact-sheets/v0.0.2-contact-sheet-16.png
+source/master/contact-sheets/v0.0.2-contact-sheet-24.png
+source/master/contact-sheets/v0.0.2-contact-sheet-32.png
+source/master/contact-sheets/v0.0.2-contact-sheet-48.png
+source/master/contact-sheets/v0.0.2-contact-sheet-256.png
+```
 
-Expected result: live-changing behavior requires explicit apply mode.
+The 48px sheet is the visual identity proof sheet.
 
 ## Known gap proof
 
-`proof/known-gaps.md` must state that missing icon assets are expected gaps for the next phase.
+`proof/known-gaps.md` must state that v0.0.2 is not installed/applied to the live OS and that no SVG scalable icons exist yet.

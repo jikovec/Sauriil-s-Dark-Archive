@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """Export multi-size Windows ICO files from real PNG assets.
 
-This script does not generate placeholder icons. It writes output only with
---apply and only from PNGs inside source/png/256 or source/master/raster.
+The exporter is asset-manifest aware for v0.0.2. When
+mappings/icon-assets.csv exists, only assets assigned to the requested
+windows_context are exported. This prevents app, folder, and filetype icons from
+being blindly copied into unrelated Windows output directories.
 """
 from __future__ import annotations
 
 import argparse
+import csv
 from pathlib import Path
 import sys
 
@@ -22,6 +25,31 @@ def ensure_inside_repo(root: Path, path: Path) -> None:
     path.resolve().relative_to(root.resolve())
 
 
+def manifest_sources(root: Path, context: str) -> list[Path]:
+    manifest = root / "mappings" / "icon-assets.csv"
+    if not manifest.is_file():
+        return []
+
+    sources: list[Path] = []
+    with manifest.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            contexts = [item.strip() for item in row.get("windows_context", "").split(";") if item.strip()]
+            if context not in contexts:
+                continue
+            source_value = row.get("source_master_path", "").strip()
+            if not source_value:
+                continue
+            source = root / source_value
+            if source.is_file():
+                sources.append(source)
+    return sorted(set(sources))
+
+
+def fallback_sources(root: Path) -> list[Path]:
+    source_dirs = [root / "source" / "png" / "256", root / "source" / "master" / "raster"]
+    return sorted({path for directory in source_dirs for path in directory.glob("*.png")})
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Export Windows ICO files from real PNG assets.")
     parser.add_argument("--context", default="apps", choices=sorted(VALID_CONTEXTS), help="windows/ico context")
@@ -29,10 +57,9 @@ def main() -> int:
     args = parser.parse_args()
 
     root = repo_root()
-    source_dirs = [root / "source" / "png" / "256", root / "source" / "master" / "raster"]
-    sources = sorted({path for directory in source_dirs for path in directory.glob("*.png")})
+    sources = manifest_sources(root, args.context) or fallback_sources(root)
     if not sources:
-        print("export_windows_ico: no source assets found in source/png/256 or source/master/raster")
+        print("export_windows_ico: no source assets found for requested context")
         return 0
 
     try:
@@ -42,7 +69,7 @@ def main() -> int:
         return 2
 
     output_dir = root / "windows" / "ico" / args.context
-    print(f"export_windows_ico: found {len(sources)} source PNG(s)")
+    print(f"export_windows_ico: found {len(sources)} source PNG(s) for {args.context}")
     for source in sources:
         ensure_inside_repo(root, source)
         output = output_dir / f"{source.stem}.ico"

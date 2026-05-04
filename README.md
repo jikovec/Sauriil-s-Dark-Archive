@@ -1,24 +1,35 @@
-# Sauriil Dark Archive Icons Skeleton
+# Sauriil Dark Archive Icons
 
-This repository is the first non-destructive skeleton package for the Sauriil Dark Archive cross-platform icon customization project.
+Sauriil Dark Archive is a non-destructive cross-platform icon-theme asset project for Windows 11 and Arch Linux/KDE Plasma.
 
-It is not a completed icon theme. It contains directory layout, mapping CSVs, dry-run tooling, rollback skeletons, conversion planning scripts, validation scripts, and proof outputs. It intentionally contains no PNG, SVG, ICO, CUR, or sample icon art.
+Current version: `v0.0.2`.
 
-## Purpose
+## Status
 
-The project prepares a safe asset pipeline for a dark fantasy archive-machine icon identity across:
+v0.0.2 contains the first real asset batch:
 
-- Windows 11 native shortcut, folder, desktop icon, selected file type, drive, and tooling workflows.
-- Arch Linux with KDE Plasma as the primary Linux target through a per-user XDG icon theme.
-- Secondary Linux compatibility notes for GNOME and XFCE.
+```txt
+apps:       sauriil-terminal, sauriil-browser, sauriil-code-editor, sauriil-file-manager
+places:     folder, folder-documents, folder-downloads, user-home
+mimetypes:  application-zip, application-x-rar, text-x-script, text-x-python
+```
 
-The visual direction to preserve in future real assets is black forged steel, ash parchment, blood-red ritual seals, subtle cyan system glow, restrained pale-gold filigree, occult circular geometry, strong silhouettes, and readable small-size icons.
+Generated outputs include:
 
-## Skeleton status
+- master raster PNGs under `source/master/raster/`
+- normalized PNGs under `source/png/<size>/`
+- Windows multi-size `.ico` files under `windows/ico/apps/`, `windows/ico/filetypes/`, and `windows/ico/folders/`
+- Linux PNG fallbacks under `linux/Sauriil-Dark-Archive/<size>/<context>/`
+- v0.0.2 contact sheets under `source/master/contact-sheets/`
+- proof reports under `proof/`
 
-This package is intentionally incomplete. It does not include real icons, placeholder images, generated sample art, registry exports, system files, installed desktop overrides, or caches.
+The package still does not install or apply icons to the live OS.
 
-The Linux theme directory is valid as a skeleton. It declares the intended XDG directories and inherits `breeze,hicolor`, but it has no real icon files yet.
+## Visual identity
+
+The icon direction is dark fantasy archive-machine utility design: black forged steel, ash parchment, blood-red ritual seals, subtle cyan magical/system glow, restrained pale-gold filigree, occult circular geometry, strong silhouettes, and small-size readability.
+
+The project avoids copied Elder Scrolls, Dark Brotherhood, Aldmeri, Microsoft, KDE, GNOME, Arch, WinRAR, Python, browser, file-manager, editor, and other protected official symbols.
 
 ## Safety model
 
@@ -29,23 +40,21 @@ All live-changing scripts are dry-run gated.
 - Registry-related workflows print backup/export plans before any future apply path.
 - Linux scripts target only `$HOME/.local/share/icons/Sauriil-Dark-Archive` and `$HOME/.local/share/applications`.
 - No script may write to `/usr/share/icons` or `/usr/share/applications`.
-- Missing mapped icons are reported as expected gaps unless a row is explicitly marked `required`.
-
-## Intentionally not implemented yet
-
-- No icon art.
-- No sample dark-fantasy icons.
-- No live system customization.
-- No Windows registry edits.
-- No Linux system-wide install.
-- No 7TSP or Windows system-resource patching.
-- No claim that the theme is installed or visually complete.
+- Missing mapped required icons fail validation.
 
 ## Validation
 
 Run from the repository root:
 
 ```bash
+python scripts/convert/normalize_pngs.py --apply
+python scripts/convert/export_windows_ico.py --context apps --apply
+python scripts/convert/export_windows_ico.py --context filetypes --apply
+python scripts/convert/export_windows_ico.py --context folders --apply
+python scripts/convert/export_linux_png_fallbacks.py --context apps --apply
+python scripts/convert/export_linux_png_fallbacks.py --context mimetypes --apply
+python scripts/convert/export_linux_png_fallbacks.py --context places --apply
+python scripts/test-render/render_contact_sheet.py --apply
 python scripts/validate/validate_structure.py
 python scripts/validate/validate_mappings.py
 python scripts/validate/validate_index_theme.py
@@ -55,7 +64,7 @@ python scripts/validate/generate_dry_run_report.py
 Optional dry-run checks:
 
 ```powershell
-pwsh ./scripts/dry-run/windows_plan_changes.ps1
+powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1
 ```
 
 ```bash
@@ -64,11 +73,13 @@ bash scripts/dry-run/linux_plan_install.sh
 
 Proof files are written under `proof/`.
 
-## Adding real icon assets later
+## Documentation
 
-1. Add master raster art to `source/master/raster/` or vector art to `source/master/vector/`.
-2. Export normalized PNG sizes into `source/png/<size>/` or SVGs into `source/svg/full-color/` and `source/svg/symbolic/`.
-3. Generate Windows `.ico` files into `windows/ico/<context>/` using `scripts/convert/export_windows_ico.py --apply`.
-4. Generate Linux PNG fallbacks into `linux/Sauriil-Dark-Archive/<size>/<context>/` using `scripts/convert/export_linux_png_fallbacks.py --apply`.
-5. Update mapping CSV rows from `example` to `required` only after the referenced real asset exists.
-6. Re-run all validation scripts and inspect `proof/known-gaps.md`.
+Start with:
+
+- `docs/v0.0.2-asset-batch.md`
+- `proof/v0.0.2-source-asset-inventory.md`
+- `proof/v0.0.2-generated-assets.md`
+- `proof/v0.0.2-contact-sheet-report.md`
+- `proof/v0.0.2-validation-report.md`
+- `proof/known-gaps.md`
