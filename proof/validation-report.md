@@ -99,3 +99,30 @@ Result: PASS
 - Errors: 0
 
 Result: PASS
+## Structure validation
+
+- Required directories checked: 55
+- Required base files checked: 29
+- v0.0.2 proof/docs checked: 6
+- Missing directories: 0
+- Missing base files: 0
+- Missing v0.0.2 files: 0
+- Image/icon assets found: 221
+- Unsafe image paths found: 0
+- Apply-capable scripts dry-run gated: yes
+
+Result: PASS
+## Mapping validation
+
+- CSV files checked: 6
+- Rows checked: 20
+- Non-fatal missing future asset gaps: 0
+- Fatal errors: 0
+
+Result: PASS
+## index.theme validation
+
+- Theme file: `linux/Sauriil-Dark-Archive/index.theme`
+- Errors: 0
+
+Result: PASS
