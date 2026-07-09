@@ -77,6 +77,11 @@ Proof files are written under `proof/`.
 
 Start with:
 
+- `00_Index.md`
+- `docs/INDEX.md`
+- `docs/agent-index.md`
+- `docs/source-map.md`
+- `docs/connections.md`
 - `docs/v0.0.2-asset-batch.md`
 - `proof/v0.0.2-source-asset-inventory.md`
 - `proof/v0.0.2-generated-assets.md`

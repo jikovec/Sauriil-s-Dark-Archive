@@ -1,30 +1,41 @@
 <!-- codex-memory-scaffold:architecture -->
 # Architecture
 
-## Observed Project Shape
-- docs
-- DOCUMENTATION
-- handoffs
-- linux
-- mappings
-- proof
-- reports
-- scripts
-- source
-- VERSIONS
-- windows
+#repo/architecture #sauriil/theme #sauriil/assets
 
-## Stack Signals
-- Python scripts handle asset conversion, contact sheet generation, and validation.
-- PowerShell scripts handle Windows dry-run, apply, and rollback workflows.
-- Bash scripts handle Linux dry-run, user-scope install, and rollback workflows.
-- No standard package manifest was found.
+## System Shape
 
-## Architecture Docs
-- [README.md](../README.md)
-- [docs/architecture.md](architecture.md)
-- [docs/v0.0.2-asset-batch.md](v0.0.2-asset-batch.md)
-- [proof/v0.0.2-validation-report.md](../proof/v0.0.2-validation-report.md)
+The repository is an asset pipeline and proof package, not an application runtime. It has four main layers:
 
-## Unknowns
-- Confirm runtime boundaries against current source before changing behavior.
+- Source assets: accepted raster masters in [source/master/raster](../source/master/raster), reference notes in [source/references](../source/references), and generated normalized PNGs in [source/png](../source/png).
+- Mapping data: CSV manifests in [mappings](../mappings) define which assets are required, which platform context they belong to, and which planned Windows/Linux targets they map to.
+- Platform outputs: Windows ICO files in [windows/ico](../windows/ico) and Linux XDG icon-theme files in [linux/Sauriil-Dark-Archive](../linux/Sauriil-Dark-Archive).
+- Proof and documentation: validation scripts write evidence under [proof](../proof), while durable planning and implementation reports live under [reports](../reports).
+
+## Pipeline
+
+1. Source art is accepted under `source/master/raster`.
+2. [mappings/icon-assets.csv](../mappings/icon-assets.csv) routes assets to Windows and Linux contexts.
+3. Python conversion scripts generate normalized PNG, Windows ICO, and Linux PNG fallback outputs.
+4. Validation scripts check required files, mapping references, unsafe paths, and `index.theme` structure.
+5. Dry-run scripts document planned Windows and Linux actions without applying live OS changes.
+
+## Platform Boundaries
+
+- Windows support is native-first and backup-first. Apply paths are gated by `-Apply` and focus on selected shortcut, file type, and registry-backed plans.
+- Linux support is user-scoped. Apply paths are gated by `--apply` and target `$HOME/.local/share/icons/Sauriil-Dark-Archive` and `$HOME/.local/share/applications`.
+- No script should write to `/usr/share`, and no Windows registry change should happen during normal documentation or proof work.
+
+## Key References
+
+- Current release: [v0.0.2-asset-batch.md](v0.0.2-asset-batch.md)
+- Source map: [source-map.md](source-map.md)
+- Connection map: [connections.md](connections.md)
+- Commands: [commands.md](commands.md)
+- Validation evidence: [../proof/v0.0.2-validation-report.md](../proof/v0.0.2-validation-report.md)
+
+## Known Limits
+
+- There is no package manifest, Makefile, CI workflow, or unit-test framework.
+- `v0.0.2` uses raster PNG fallbacks and does not include true scalable SVG assets.
+- Live OS apply and rollback behavior must be re-inspected before any future apply-capable run.

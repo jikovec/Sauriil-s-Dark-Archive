@@ -1,33 +1,66 @@
 <!-- codex-memory-scaffold:testing -->
 # Testing
 
-## Explicit Or Discovered Test And Check Commands
-- python scripts/convert/normalize_pngs.py --apply
-- python scripts/convert/export_windows_ico.py --context apps --apply
-- python scripts/convert/export_windows_ico.py --context filetypes --apply
-- python scripts/convert/export_windows_ico.py --context folders --apply
-- python scripts/convert/export_linux_png_fallbacks.py --context apps --apply
-- python scripts/convert/export_linux_png_fallbacks.py --context mimetypes --apply
-- python scripts/convert/export_linux_png_fallbacks.py --context places --apply
-- python scripts/test-render/render_contact_sheet.py --apply
-- python scripts/validate/validate_structure.py
-- python scripts/validate/validate_mappings.py
-- python scripts/validate/validate_index_theme.py
-- python scripts/validate/generate_dry_run_report.py
+#repo/testing #sauriil/proof
 
-Expected result: generated assets exist, mapping rows point only to existing required assets, linux/Sauriil-Dark-Archive/index.theme is structurally valid, and no live OS install/apply action occurs.
+## Verification Layers
 
-## Dry-Run Proof Commands
-- powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1
-- bash scripts/dry-run/linux_plan_install.sh
+- Docs-only verification: whitespace, JSON validity, and Markdown link checks.
+- Static asset proof: `validate_structure.py`, `validate_mappings.py`, and `validate_index_theme.py`.
+- Regeneration proof: conversion and contact-sheet commands that write generated assets.
+- Dry-run proof: Windows and Linux planners that document planned changes without applying them.
 
-Expected result: commands print or write planned changes only. No registry write, no `/usr/share` write, and no install occurs.
+## Docs-Only Checks
 
-## Inferred Commands
-- No inferred test commands were added.
+Use these when only documentation or indexes changed:
 
-## Verification Notes
-- Commands listed above were discovered in README.md, docs/proof-checklist.md, and the scripts directory.
-- There is no separate unit-test framework or package manifest in the inspected repo root.
-- Validation/proof commands mutate files under proof/; use them when proof regeneration is acceptable.
-- During the 2026-07-07 memory validation, these commands were statically verified but not run because the task was documentation-memory validation only.
+```powershell
+git diff --check
+python -m json.tool docs/agent-index.json
+```
+
+Run a Markdown link scan over changed `.md` files. Links are resolved relative to the containing file, not the repository root.
+
+## Asset And Proof Checks
+
+Use these only when regenerating assets or proof evidence is intended:
+
+```bash
+python scripts/convert/normalize_pngs.py --apply
+python scripts/convert/export_windows_ico.py --context apps --apply
+python scripts/convert/export_windows_ico.py --context filetypes --apply
+python scripts/convert/export_windows_ico.py --context folders --apply
+python scripts/convert/export_linux_png_fallbacks.py --context apps --apply
+python scripts/convert/export_linux_png_fallbacks.py --context mimetypes --apply
+python scripts/convert/export_linux_png_fallbacks.py --context places --apply
+python scripts/test-render/render_contact_sheet.py --apply
+python scripts/validate/validate_structure.py
+python scripts/validate/validate_mappings.py
+python scripts/validate/validate_index_theme.py
+python scripts/validate/generate_dry_run_report.py
+```
+
+Expected result: generated assets exist, mapping rows point only to existing required assets, `linux/Sauriil-Dark-Archive/index.theme` is structurally valid, and no live OS install/apply action occurs.
+
+## Dry-Run Proof
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1
+```
+
+```bash
+bash scripts/dry-run/linux_plan_install.sh
+```
+
+Expected result: commands write or print planned changes only. No registry write, shortcut change, `/usr/share` write, or install occurs.
+
+## Current Evidence
+
+- [../proof/v0.0.2-validation-report.md](../proof/v0.0.2-validation-report.md) records passing `v0.0.2` structure, mapping, `index.theme`, contact sheet, and dry-run safety checks.
+- [../proof/known-gaps.md](../proof/known-gaps.md) records remaining release gaps.
+- [../reports/2026-07-09-docs-indexing-implementation.md](../reports/2026-07-09-docs-indexing-implementation.md) records docs/indexing verification for the local Obsidian and agent-orientation system.
+
+## Notes
+
+- There is no separate unit-test framework or package manifest.
+- Proof commands can mutate files under `proof/`; do not run them during a docs-only pass unless proof regeneration is explicitly part of the task.
