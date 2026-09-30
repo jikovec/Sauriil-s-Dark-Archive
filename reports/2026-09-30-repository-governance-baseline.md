@@ -146,17 +146,20 @@ Validation of implementation commit `296dfc18f2846d3c069624f6b40254514ad9c115`:
 | product/asset proof regeneration | not run | documentation/governance-only scope; commands mutate proof/generated assets and current `validate_mappings.py` has tracked defect #7 |
 | live OS apply/rollback | not run | explicitly outside scope and current safety gaps remain open |
 
-## Git / GitHub State At This Report Point
+## Git / GitHub Delivery State
 
 - Work object: [#10](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/10)
 - Owner-policy decisions: [#11](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/11)
 - Branch: `docs/governance-baseline-20260930`
-- Implementation commit: `296dfc18f2846d3c069624f6b40254514ad9c115`
+- Pull request: [#12](https://github.com/jikovec/Sauriil-s-Dark-Archive/pull/12)
+- PR readback before this report update: open, non-draft, mergeable, targeting `main`
+- GitHub status checks reported on the then-current PR head: none
+- GitHub Actions pull-request workflow runs reported on the then-current PR head: none
 - Merge: not performed
 - Deployment/publication/release: not performed
 - Live OS modification: not performed
 
-Delivery is completed through a pull request after this report is committed and revalidated.
+The pull request head is the authoritative revision for current delivery state.
 
 ## Remaining Owner Decisions
 
