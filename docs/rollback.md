@@ -1,30 +1,36 @@
 # Rollback
 
-## Windows shortcut rollback
+Rollback is a live-state operation when run in apply mode. It requires explicit authorization and must be verified separately from repository delivery.
 
-Restore backed-up `.lnk` files or manually change the icon back through Shortcut Properties → Change Icon.
+## Current Caveats
 
-For pinned taskbar icons, unpin the themed shortcut and pin the original shortcut again.
+- Windows lossless rollback is not yet established for registry keys/values that did not exist before apply. See [#3](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/3).
+- Non-destructive regression verification for apply/rollback invariants is tracked in [#4](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/4).
+- Linux install/preflight consistency is tracked in [#2](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/2).
 
-## Windows registry rollback
+Do not treat the commands below as proof that these gaps are resolved.
 
-Before future registry-backed changes, export affected keys. Rollback imports the `.reg` backups from `windows/registry/rollback/`.
+## Windows Registry Rollback
 
-Dry-run:
+Current dry-run:
 
 ```powershell
 pwsh ./scripts/rollback/windows_rollback_icons.ps1
 ```
 
-Apply mode:
+Current apply mode:
 
 ```powershell
 pwsh ./scripts/rollback/windows_rollback_icons.ps1 -Apply
 ```
 
-## Windows icon cache refresh
+The accepted target behavior is to restore the exact pre-apply state, including the distinction between an existing value and a value/key created by Sauriil. Current implementation work to reach that contract is tracked in #3.
 
-After rollback, restart Explorer or rebuild icon cache only when necessary:
+## Windows Shortcut / Cache Recovery
+
+Shortcut recovery remains manual unless a work item introduces explicit backed-up shortcut state. For pinned items, restore the source shortcut then re-pin if needed.
+
+After an authorized rollback, refresh Explorer/icon cache only when necessary:
 
 ```bat
 ie4uinit.exe -show
@@ -32,23 +38,28 @@ taskkill /F /IM explorer.exe
 start explorer.exe
 ```
 
-Use aggressive cache deletion only if Explorer remains stale.
+Aggressive cache deletion is not the default path.
 
-## KDE theme rollback
+## Linux Theme Rollback
 
-Switch KDE back to Breeze/Breeze Dark in System Settings first. Then remove only the user-scope theme directory:
+Dry-run:
 
 ```bash
-rm -rf "$HOME/.local/share/icons/Sauriil-Dark-Archive"
-kbuildsycoca6 --noincremental || true
+bash scripts/rollback/linux_rollback_user_theme.sh
 ```
 
-## `.desktop` override rollback
+Apply mode:
 
-Remove only explicitly managed files from:
-
-```txt
-$HOME/.local/share/applications
+```bash
+bash scripts/rollback/linux_rollback_user_theme.sh --apply
 ```
 
-Do not delete unrelated user `.desktop` files. The rollback script reads mapping CSV rows and only plans mapped override names.
+The intended boundary is user scope only:
+- `$HOME/.local/share/icons/Sauriil-Dark-Archive`
+- explicitly managed overrides under `$HOME/.local/share/applications`
+
+Do not delete unrelated user `.desktop` files. Future verified rollback evidence must demonstrate that only artifacts actually managed by this project are removed.
+
+## Evidence
+
+A rollback is not verified merely because the script exits successfully. Record pre-state, action, resulting state, and—where applicable—restoration/removal of exactly the state introduced by apply.

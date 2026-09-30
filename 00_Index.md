@@ -13,6 +13,15 @@ This repo root is configured as a local Obsidian vault for project documentation
 - [docs/current-state.md](docs/current-state.md)
 - [docs/decisions.md](docs/decisions.md)
 
+## Repository Policies
+
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [SECURITY.md](SECURITY.md)
+- [SUPPORT.md](SUPPORT.md)
+- [CHANGELOG.md](CHANGELOG.md)
+
+No repository license or Code of Conduct is currently selected; owner decisions are tracked in [GitHub Issue #11](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/11).
+
 ## Project Overview
 
 - [docs/project-overview.md](docs/project-overview.md)
@@ -76,4 +85,4 @@ This repo root is configured as a local Obsidian vault for project documentation
 - Keep this index additive and link existing docs instead of moving or duplicating them.
 - Keep `.obsidian/` ignored and untracked.
 - Store durable reports in `reports/` and unfinished-work handoffs in `handoffs/`.
-- Update [docs/agent-index.json](docs/agent-index.json) after meaningful changes to commands, safety rules, paths, tags, or entry points.
+- Update [docs/agent-index.json](docs/agent-index.json) after meaningful changes to commands, safety rules, paths, work routing, tags, or entry points.

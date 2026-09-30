@@ -1,8 +1,10 @@
 # Proof Checklist
 
-## v0.0.2 validation
+This checklist distinguishes repository/asset proof from live OS proof. Do not treat a dry-run gate or static token check as evidence that an apply path is transactionally safe.
 
-Run:
+## v0.0.2 asset validation commands
+
+The documented asset-generation/validation sequence is:
 
 ```bash
 python scripts/convert/normalize_pngs.py --apply
@@ -19,56 +21,69 @@ python scripts/validate/validate_index_theme.py
 python scripts/validate/generate_dry_run_report.py
 ```
 
-Expected result: generated assets exist, mappings point only to existing required assets, `index.theme` is structurally valid, and no system install/apply action occurs.
+These commands mutate generated assets and/or proof. Run them only when regeneration is intended.
+
+Known current defects affect how this sequence must be interpreted:
+- exporter fallback behavior: [#6](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/6);
+- `validate_mappings.py` can overwrite `proof/known-gaps.md` with obsolete skeleton wording: [#7](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/7).
+
+Until #7 is fixed, inspect any `known-gaps.md` change explicitly rather than accepting it as generated truth.
 
 ## Script dry-run proof
 
-Run where available:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1
-```
-
-Run:
+Linux:
 
 ```bash
 bash scripts/dry-run/linux_plan_install.sh
 ```
 
-Expected result: commands print planned changes only. No registry write, no `/usr/share` write, and no install occurs.
+Windows, where PowerShell is available:
 
-## Package contents proof
-
-Check:
-
-```bash
-python scripts/validate/generate_dry_run_report.py
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1
 ```
 
-Expected result: `proof/package-manifest.txt` and `proof/known-gaps.md` are regenerated and required mapping gaps are zero.
+Dry-run proof may write files under `proof/` but must not modify live registry, shortcuts, system directories, or installed theme state.
 
-## Windows no-live-registry-modification proof
+The captured v0.0.2 validation skipped the Windows planner because PowerShell was unavailable. Fresh Windows-capable proof is tracked in [#5](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/5).
 
-Only dry-run scripts are executed during validation. The apply script refuses without `-Apply`, and no `.reg` export from the live machine is bundled.
+## Structural proof limits
 
-## Linux no-system-directory-modification proof
+`validate_structure.py` checks required structure and the presence of apply-gate tokens. It does not prove safe ordering, backup completeness, stable icon storage, or rollback recoverability. Non-destructive behavioral coverage is tracked in [#4](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/4).
 
-Only dry-run scripts are executed during validation. The Linux install script refuses without `--apply` and contains explicit `/usr/share` refusal checks.
+## Live Windows proof
 
-## Contact sheet proof
+Not established by the current release proof set.
 
-Confirm these files exist:
+Before any future live Windows proof:
+- resolve or explicitly account for [#3](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/3);
+- use explicit authorization;
+- capture pre-apply state/backup, action, readback, and rollback evidence.
 
-```txt
-source/master/contact-sheets/v0.0.2-contact-sheet-16.png
-source/master/contact-sheets/v0.0.2-contact-sheet-24.png
-source/master/contact-sheets/v0.0.2-contact-sheet-32.png
-source/master/contact-sheets/v0.0.2-contact-sheet-48.png
-source/master/contact-sheets/v0.0.2-contact-sheet-256.png
+## Live Linux proof
+
+Not established by the current release proof set.
+
+Before any future live Linux proof:
+- resolve or explicitly account for [#2](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/2);
+- use explicit authorization;
+- capture preflight, action, readback, and rollback evidence.
+
+## Contact Sheet Proof
+
+The documented v0.0.2 contact sheets are under `source/master/contact-sheets/`; the 48px sheet is the primary visual-identity proof size.
+
+## Evidence Reporting
+
+For every check, record the exact revision/environment where material and one of:
+
+```text
+passed
+failed
+blocked
+unavailable
+not applicable
+not run
 ```
 
-The 48px sheet is the visual identity proof sheet.
-
-## Known gap proof
-
-`proof/known-gaps.md` must state that v0.0.2 is not installed/applied to the live OS and that no SVG scalable icons exist yet.
+Never convert an unavailable or skipped check into a pass.

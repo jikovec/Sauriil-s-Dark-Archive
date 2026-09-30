@@ -1,64 +1,68 @@
 # Windows 11 Plan
 
+## Status
+
+This file defines the accepted Windows target plan. It is not proof that current apply/rollback scripts already conform to the plan.
+
+Current implementation gap [#3](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/3) tracks stable icon storage, backup verification, prior-state recording, and lossless rollback. Do not run live registry apply based on this plan alone.
+
 ## Strategy
 
-Use a native-first, backup-first Windows strategy. Windows is not a true OS-wide icon-theme platform, so the skeleton separates safe native targets from registry-backed and third-party-assisted targets.
+Use a native-first, backup-first Windows strategy. Windows is not a true OS-wide icon-theme platform, so the project separates native targets from registry-backed and third-party-assisted targets.
 
-## Stable icon storage path
+## Stable Icon Storage Path
 
-Future real icons should be copied to a stable user-owned path before applying them:
+Before any registry/shortcut reference is applied, icons should be staged in:
 
-```txt
+```text
 %LOCALAPPDATA%\SauriilDarkArchive\icons\
 ```
 
-Do not point shortcuts or registry values at temporary build folders.
+Do not point persistent Windows configuration at repository, temporary, build, or removable paths.
 
-## Native-first targets
+## Native-First Targets
 
-Use native Windows methods first:
+Prefer native Windows methods for:
+- desktop/Start-menu Win32 shortcuts;
+- pinned taskbar items via their source shortcut;
+- project folders;
+- Desktop Icon Settings targets;
+- Windows Terminal profile icons.
 
-- Desktop and Start-menu Win32 shortcuts: Shortcut Properties → Change Icon.
-- Pinned taskbar icons: change the source shortcut icon, unpin the old item, then pin the corrected shortcut.
-- Project folders: Folder Properties → Customize → Change Icon.
-- Desktop system icons: Settings → Personalization → Themes → Desktop icon settings.
-- Windows Terminal profiles: profile `icon` property in Terminal settings.
+These are preferable to broad shell/resource patching because their scope and rollback are easier to reason about.
 
-These targets are the first real rollout phase because they are reversible and do not require registry edits in this skeleton.
+## Registry-Backed Targets
 
-## Registry-backed targets
+Registry-backed changes are limited to documented narrow targets such as:
+- selected `ProgID\DefaultIcon` values;
+- `Explorer\DriveIcons\<DriveLetter>\DefaultIcon`.
 
-Use registry-backed changes only after backup/export and only for documented, narrow targets:
+Before the first mutation, the implementation must:
+1. validate every required source/mapping/input;
+2. stage icons at the stable user-owned path;
+3. capture whether each managed key/value existed and its exact prior value;
+4. verify backup/state capture succeeded;
+5. construct the apply plan;
+6. only then mutate registry state.
 
-- File type icons through selected `ProgID\DefaultIcon` values.
-- Drive icons through `Explorer\DriveIcons\<DriveLetter>\DefaultIcon`.
+The `-Apply` flag is an authorization gate, not a substitute for these invariants.
 
-The mapping CSVs define planned registry paths. Dry-run scripts read those paths and report missing future icon files. The apply script is gated behind `-Apply`.
+## Backup And Rollback Contract
 
-## Backup/export expectations
+Rollback must restore an existing prior value exactly or remove state created by Sauriil when no prior value existed. A failed backup/preflight must cause no registry mutation.
 
-Before future registry changes, export relevant keys to `windows/registry/rollback/` or another explicit backup folder:
+See [rollback.md](rollback.md) and #3.
 
-```powershell
-reg export HKCU\Software\Classes windows\registry\rollback\hkcu-classes-before-sauriil.reg /y
-reg export HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer\DriveIcons windows\registry\rollback\driveicons-before-sauriil.reg /y
-```
-
-If a restore point is used, create it manually before apply mode.
-
-## Third-party tool risk order
+## Third-Party Tool Risk Order
 
 Preferred order:
-
 1. Native Windows methods.
 2. CustomFolder / FolderIco for folder-specific styling.
 3. IconPackager for broader icon-pack experiments.
 4. Winaero Tweaker for narrow reversible tweaks.
 5. Start11 / StartAllBack for Start/taskbar layout only.
-6. Windhawk for specific shell behavior experiments.
-7. ExplorerPatcher only if behavior restoration is needed, not for icon identity.
+6. Windhawk for isolated shell behavior experiments.
+7. ExplorerPatcher only if behavior restoration becomes a separate requirement.
 8. 7TSP only in a VM or after a full system image backup.
 
-## Rollback expectations
-
-Rollback must restore shortcut backups, import `.reg` backups, remove drive-icon overrides, restore folder defaults, revert Windows Terminal profile icon entries, and refresh Explorer/icon cache. The rollback script is also dry-run gated.
+Third-party tools are not required for the current v0.0.2 asset/proof baseline.

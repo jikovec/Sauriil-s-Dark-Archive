@@ -4,46 +4,52 @@
 
 This repository has no cloud deployment, hosted service, package registry deployment, or CI release workflow.
 
+## Git Merge Versus Deployment
+
+```text
+merge != deployment
+```
+
+Merging repository changes does not apply the theme to Windows or Linux. Live OS customization is a separate, explicitly authorized action performed by apply-capable scripts or manual platform steps.
+
 ## Release Artifacts
 
-- Release ZIP archives live under [../VERSIONS](../VERSIONS).
-- Existing proof manifests live under [../proof](../proof).
-- Do not edit, inspect, rewrite, or regenerate release archives unless the user explicitly asks.
+- Intentional release ZIP archives live under [../VERSIONS](../VERSIONS).
+- Proof manifests and validation evidence live under [../proof](../proof).
+- Do not edit, rewrite, regenerate, or normalize release archives unless release-archive work is explicitly authorized.
+- A protected WinRAR archive change on current `main` has a provenance-review work item: [#8](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/8).
+
+The repository currently has no documented automated release trigger.
 
 ## Windows Apply Boundary
 
-Windows apply behavior is intentionally gated:
+Windows apply is gated by `-Apply`, but current source does not yet conform to the accepted stable-storage/lossless-rollback contract. See [#3](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/3).
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/apply/windows_apply_icons.ps1 -Apply
-```
-
-Do not run this command during normal docs, proof, or planning work. Re-read the current script and [windows-plan.md](windows-plan.md) before any user-approved apply run.
+Do not use a repository merge or passing static validation as evidence that Windows apply is safe.
 
 ## Linux Install Boundary
 
-Linux install behavior is intentionally gated:
+Linux install is gated by `--apply` and targets user scope, but current source can mutate the theme before all required desktop-override inputs are validated. See [#2](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/2).
 
-```bash
-bash scripts/apply/linux_install_user_theme.sh --apply
-```
-
-The intended install target is user-scoped:
-
-```txt
-$HOME/.local/share/icons/Sauriil-Dark-Archive
-```
-
-Scripts must not write to `/usr/share`.
+Do not run it as part of routine repository verification.
 
 ## Rollback Boundary
 
-Rollback dry-runs are documented in [rollback.md](rollback.md). Apply rollback commands still modify local state and require an explicit user request.
+Rollback dry-runs are documented in [rollback.md](rollback.md). Apply rollback commands modify local state and require explicit authorization. Current Windows lossless-rollback work remains tracked in #3.
 
-## Current Non-Goals
+## Verification After Any Future Authorized Release/Apply
 
-- No cloud or account integration.
+A successful Git commit, pull request, or merge is not live verification. Future release/apply work must separately record:
+- the exact artifact/revision;
+- exact command or manual action;
+- target environment;
+- result;
+- rollback/readback result where applicable.
+
+## Non-Goals
+
+- No cloud/account integration.
 - No Obsidian sync setup.
 - No encryption setup.
 - No system-resource patching.
-- No live Windows registry or Linux desktop activation proof for `v0.0.2`.
+- No implicit live registry, desktop, or theme activation from repository delivery.

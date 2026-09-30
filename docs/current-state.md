@@ -3,23 +3,39 @@
 
 #repo/index #sauriil/v0-0-2
 
-Last reviewed: 2026-07-09.
+Last reviewed: 2026-09-30 against `main@1246dde9fa9956351bfd54fe43ccae2da1217c3a`.
 
 ## Project Purpose
 
-Sauriil Dark Archive is a non-destructive cross-platform icon-theme asset project for Windows 11 and Arch Linux/KDE Plasma.
+Sauriil Dark Archive is a cross-platform icon-theme asset, conversion, platform-output, and proof project for Windows 11 and Arch Linux/KDE Plasma.
 
 ## Current Release State
 
-- Current documented version: `v0.0.2`.
+- Current documented release: `v0.0.2`.
 - `v0.0.2` contains 12 accepted raster source icons and generated Windows ICO/Linux PNG fallback assets.
-- Existing proof reports record passing structure, mapping, `index.theme`, contact sheet, and dry-run safety checks.
-- The package still does not install or apply icons to the live OS by default.
-- `VERSIONS/` contains release ZIP archives; do not edit or regenerate them unless explicitly requested.
+- Captured release proof records successful structure, mapping, `index.theme`, contact-sheet, Linux dry-run, and asset-generation checks for that release.
+- The captured Windows PowerShell dry-run was skipped because PowerShell was unavailable in the validation environment.
+- Apply-capable scripts exist, but current proof does not establish live Windows/Linux apply or rollback safety.
+- `VERSIONS/` contains intentional release ZIP archives and is protected from routine regeneration.
 
-## Apparent Stack
+## Current Known Implementation Gaps
 
-- Python scripts for asset conversion, contact sheet generation, and validation.
+Current source inspection and the GitHub work ledger track these material gaps:
+
+- [#2](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/2): Linux install can mutate the user theme before all required desktop-override inputs are validated.
+- [#3](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/3): Windows apply uses repository icon paths instead of the accepted stable user-owned location and does not yet prove lossless rollback for previously absent registry state.
+- [#4](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/4): apply/rollback safety invariants lack non-destructive regression coverage.
+- [#5](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/5): Windows PowerShell dry-run proof still needs capture on a Windows-capable environment.
+- [#6](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/6): exporters can fall back to unrelated assets for an unmapped context.
+- [#7](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/7): mapping validation can overwrite current known-gap evidence with obsolete skeleton-era text.
+- [#8](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/8): the protected WinRAR archive change in the current main commit needs provenance review.
+
+Check live Issues and pull requests before relying on this dated snapshot.
+
+## Tooling
+
+- Python scripts for asset conversion, contact-sheet generation, and validation.
+- Pillow is required by image-processing scripts when source images are present.
 - PowerShell scripts for Windows dry-run, apply, and rollback workflows.
 - Bash scripts for Linux dry-run, user-scope install, and rollback workflows.
 - CSV mapping manifests for asset and platform routing.
@@ -28,17 +44,21 @@ Sauriil Dark Archive is a non-destructive cross-platform icon-theme asset projec
 
 ## Key Folders
 
-- [../docs](.) - active documentation and agent/Obsidian indexes.
-- [../DOCUMENTATION](../DOCUMENTATION) - historical handoffs and research notes.
-- [../handoffs](../handoffs) - future unfinished-work handoffs.
-- [../linux](../linux) - Linux icon-theme output and install/desktop override staging.
-- [../mappings](../mappings) - CSV manifests and platform mapping data.
-- [../proof](../proof) - validation evidence and generated proof reports.
-- [../reports](../reports) - durable review, planning, and implementation reports.
-- [../scripts](../scripts) - conversion, validation, dry-run, apply, and rollback scripts.
-- [../source](../source) - source raster assets, generated PNGs, contact sheets, and references.
-- [../VERSIONS](../VERSIONS) - release archives.
-- [../windows](../windows) - Windows ICO outputs and registry/shortcut staging folders.
+- [../docs](.) — active documentation and agent/Obsidian indexes.
+- [../DOCUMENTATION](../DOCUMENTATION) — historical handoffs and implementation/research notes.
+- [../handoffs](../handoffs) — unfinished-work handoffs.
+- [../linux](../linux) — Linux icon-theme output and install/desktop-override staging.
+- [../mappings](../mappings) — CSV manifests and platform mapping data.
+- [../proof](../proof) — validation evidence and generated proof reports.
+- [../reports](../reports) — durable review, planning, and implementation reports.
+- [../scripts](../scripts) — conversion, validation, dry-run, apply, and rollback scripts.
+- [../source](../source) — source raster assets, generated PNGs, contact sheets, and references.
+- [../VERSIONS](../VERSIONS) — intentional release archives.
+- [../windows](../windows) — Windows ICO outputs and registry/shortcut staging folders.
+
+## Work State
+
+Repository source/configuration and current verification evidence are technical truth. Current GitHub Issues and pull requests are the operational work ledger. Historical reports and conversations do not prove current implementation or current work status.
 
 ## Entry Points
 
@@ -47,34 +67,14 @@ Sauriil Dark Archive is a non-destructive cross-platform icon-theme asset projec
 - Human docs hub: [INDEX.md](INDEX.md)
 - Agent guide: [agent-index.md](agent-index.md)
 - Machine index: [agent-index.json](agent-index.json)
-- Source map: [source-map.md](source-map.md)
-- Connection map: [connections.md](connections.md)
-- Obsidian guide: [obsidian.md](obsidian.md)
+- Contribution policy: [../CONTRIBUTING.md](../CONTRIBUTING.md)
+- Security policy: [../SECURITY.md](../SECURITY.md)
+- Support policy: [../SUPPORT.md](../SUPPORT.md)
 
-## Important Commands
+## Command Boundary
 
-See [commands.md](commands.md) and [testing.md](testing.md). The important boundary is that conversion/contact-sheet commands write generated assets, and validation/dry-run proof commands can rewrite files under `proof/`.
+See [commands.md](commands.md) and [testing.md](testing.md). Conversion/contact-sheet commands can write generated assets; several validators write proof files. Live apply/apply-rollback commands are not repository validation commands and require explicit authorization.
 
-Apply-capable commands remain opt-in:
+## Owner Decisions
 
-- Windows apply requires `-Apply`.
-- Linux install and rollback apply require `--apply`.
-
-## Current Reports And Handoffs
-
-- [../reports/INDEX.md](../reports/INDEX.md)
-- [../reports/2026-07-09-docs-indexing-hardening.md](../reports/2026-07-09-docs-indexing-hardening.md)
-- [../reports/obsidian-agent-indexing-plan.md](../reports/obsidian-agent-indexing-plan.md)
-- [../reports/2026-07-09-docs-indexing-implementation.md](../reports/2026-07-09-docs-indexing-implementation.md)
-- [../reports/2026-07-07-memory-workflow-validation.md](../reports/2026-07-07-memory-workflow-validation.md)
-- [../reports/multi-repo-finalization-2026-07-07.md](../reports/multi-repo-finalization-2026-07-07.md)
-- [../handoffs/INDEX.md](../handoffs/INDEX.md)
-
-No task-specific handoff files are currently present under `handoffs/`.
-
-## Open Unknowns
-
-- Live Windows apply, Linux install, and rollback apply behavior are not proven by current proof reports.
-- Some historical docs under `DOCUMENTATION/` may use skeleton-era wording.
-- No package manifest or CI workflow exists, so verification is script and docs driven.
-- Release ZIP archives are present and one pre-existing archive modification was observed before this docs/indexing implementation pass.
+The repository currently has no selected license, Code of Conduct, or published private vulnerability-reporting route. These decisions are tracked in [#11](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/11).
