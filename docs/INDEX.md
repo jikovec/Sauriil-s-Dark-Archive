@@ -17,6 +17,15 @@ This is the GitHub-compatible documentation hub for Sauriil Dark Archive. The ro
 - [Agent index](agent-index.md)
 - [Machine-readable agent index](agent-index.json)
 
+## Repository Policies
+
+- [Contributing](../CONTRIBUTING.md)
+- [Security policy](../SECURITY.md)
+- [Support](../SUPPORT.md)
+- [Changelog](../CHANGELOG.md)
+
+Licensing, Code of Conduct selection, and a private vulnerability-reporting route require owner decisions tracked in [Issue #11](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/11).
+
 ## Maps
 
 - [Source map](source-map.md)
@@ -54,4 +63,4 @@ This is the GitHub-compatible documentation hub for Sauriil Dark Archive. The ro
 - Keep links relative to the current file.
 - Prefer normal Markdown links over Obsidian-only wiki links inside `docs/`.
 - Keep tags on durable hubs and reports, not generated proof detail rows.
-- Update [agent-index.json](agent-index.json) after meaningful changes to commands, paths, risks, tags, or entry points.
+- Update [agent-index.json](agent-index.json) after meaningful changes to commands, paths, risks, work routing, tags, or entry points.

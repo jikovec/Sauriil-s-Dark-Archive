@@ -1,53 +1,72 @@
-<!-- codex-memory-scaffold:agents-workflow -->
-## Codex Project Memory Workflow
+# Agent Instructions
 
-This repository is a local-first documentation and asset vault for the Sauriil Dark Archive icon theme. Treat it as a non-destructive asset/conversion/proof project unless the user explicitly asks for live OS apply or rollback behavior.
+This repository is the Sauriil Dark Archive icon-theme asset/conversion/proof project. Preserve that project boundary. Live OS customization is never implied by routine repository work.
 
-## Start Here
+## Required orientation
 
-Before meaningful work, read:
+Before meaningful work:
 
-1. [00_Index.md](00_Index.md)
-2. [docs/INDEX.md](docs/INDEX.md)
-3. [docs/current-state.md](docs/current-state.md)
-4. [docs/decisions.md](docs/decisions.md)
-5. [docs/agent-index.md](docs/agent-index.md)
+1. Inspect the current default branch and `git status --short --branch` in the working copy you will modify.
+2. Read [README.md](README.md), [00_Index.md](00_Index.md), [docs/INDEX.md](docs/INDEX.md), [docs/current-state.md](docs/current-state.md), and [docs/decisions.md](docs/decisions.md).
+3. Inspect current GitHub Issues and pull requests for operational work state and conflicts.
+4. Read task-specific source, scripts, mappings, proof, and documentation before changing them.
 
-Then inspect the task-specific source of truth:
+Useful routes:
 
-- Commands and validation: [docs/commands.md](docs/commands.md), [docs/testing.md](docs/testing.md), [docs/proof-checklist.md](docs/proof-checklist.md)
-- Architecture and source layout: [docs/architecture.md](docs/architecture.md), [docs/source-map.md](docs/source-map.md), [docs/connections.md](docs/connections.md)
-- Security and apply boundaries: [docs/security-model.md](docs/security-model.md), [docs/deployment.md](docs/deployment.md), [docs/rollback.md](docs/rollback.md)
-- Obsidian conventions: [docs/obsidian.md](docs/obsidian.md)
-- Reports and handoffs: [reports/INDEX.md](reports/INDEX.md), [handoffs/INDEX.md](handoffs/INDEX.md)
+- Commands and verification: [docs/commands.md](docs/commands.md), [docs/testing.md](docs/testing.md), [docs/proof-checklist.md](docs/proof-checklist.md)
+- Architecture/source: [docs/architecture.md](docs/architecture.md), [docs/source-map.md](docs/source-map.md), [docs/connections.md](docs/connections.md)
+- Security/apply boundaries: [SECURITY.md](SECURITY.md), [docs/security-model.md](docs/security-model.md), [docs/deployment.md](docs/deployment.md), [docs/rollback.md](docs/rollback.md)
+- Contribution workflow: [CONTRIBUTING.md](CONTRIBUTING.md)
+- Reports/handoffs: [reports/INDEX.md](reports/INDEX.md), [handoffs/INDEX.md](handoffs/INDEX.md)
 
-## Source Of Truth
+## Authority
 
-- Prefer source/config/scripts/mappings/assets over docs when they conflict: `scripts/`, `mappings/`, `source/`, `windows/`, `linux/Sauriil-Dark-Archive/index.theme`.
-- Prefer proof reports over inferred notes for validation status, especially [proof/v0.0.2-validation-report.md](proof/v0.0.2-validation-report.md).
-- Treat [README.md](README.md), this file, [00_Index.md](00_Index.md), and active docs under `docs/` as the human orientation layer.
-- Treat `DOCUMENTATION/` as historical context unless a current doc or proof report points to it.
-- Mark inferred information clearly.
+Use this order when sources disagree:
 
-## Safety Rules
+1. Current source/configuration/scripts/mappings/assets and repository state.
+2. Verification evidence from checks actually run against the relevant revision.
+3. Active canonical documentation under the repository root and `docs/`.
+4. Historical reports and `DOCUMENTATION/`.
+5. Clearly identified inference.
 
-- Preserve runtime and product behavior unless the user explicitly asks for a behavior change.
-- Do not commit, push, tag, release, deploy, publish, reset, stash, or discard changes unless explicitly requested.
-- Do not edit or regenerate `VERSIONS/` release archives unless explicitly requested.
-- Do not copy secrets, credentials, tokens, private keys, account identifiers, private URLs, `.env` contents, or sensitive local paths into docs or indexes.
-- Keep Obsidian local-first and plaintext. Keep `.obsidian/` ignored and untracked.
-- Do not add Obsidian sync, cloud sharing, account coupling, encryption setup, or company integrations.
+GitHub Issues and pull requests are the operational work ledger: they describe current/queued work, not technical implementation truth. Re-check both before making work-state claims.
 
-## Command Boundaries
+Do not convert accepted target plans into implementation claims. Current apply-path defects are tracked in GitHub; an apply gate alone is not proof of safe behavior.
 
-- Proof and conversion commands can mutate generated assets or proof files. Run them only when regeneration is in scope.
-- Windows apply requires `-Apply`; Linux install/rollback apply requires `--apply`. Do not run apply-capable commands without an explicit user request.
-- Prefer docs-safe checks for documentation work: `git diff --check`, JSON validation for `docs/agent-index.json`, and Markdown link scans.
+## Work and delivery
 
-## After Meaningful Changes
+For material work, follow:
 
-- Update [docs/current-state.md](docs/current-state.md) when repo status or source-of-truth routing changes.
-- Update [docs/agent-index.json](docs/agent-index.json) when entry points, commands, safety rules, paths, tags, or known risks change.
-- Add a dated note under `handoffs/` when work is intentionally left unfinished.
-- Add a report under `reports/` when durable evidence or implementation context should stay in the repo.
-<!-- /codex-memory-scaffold:agents-workflow -->
+```text
+Issue / work object
+→ branch
+→ implementation
+→ verification
+→ pull request
+```
+
+- Preserve unrelated dirty and untracked work.
+- Do not reset, stash, discard, or rewrite unrelated changes.
+- Perform external mutations only when the current task explicitly authorizes them.
+- Do not merge, deploy, publish, release, or tag unless that effect is explicitly authorized.
+- Do not edit or regenerate `VERSIONS/` archives unless release-archive work is explicitly in scope.
+
+## Verification
+
+- Run the smallest relevant checks from [docs/testing.md](docs/testing.md).
+- Never report an unavailable or unrun check as passing.
+- Proof/conversion commands can mutate generated assets or `proof/`; run them only when regeneration is in scope.
+- Live Windows/Linux apply or apply-rollback commands are not validation commands and require explicit authorization.
+
+## Security and privacy
+
+- Never add secrets, credentials, tokens, private keys, `.env` contents, private URLs, account identifiers, or sensitive local machine state.
+- Keep `.obsidian/` ignored and untracked.
+- Do not add Obsidian sync, cloud sharing, account coupling, encryption setup, or company integrations unless explicitly requested.
+- Follow [SECURITY.md](SECURITY.md) for vulnerability material.
+
+## Documentation obligations
+
+After meaningful changes, update only the canonical documents affected. Keep [docs/agent-index.json](docs/agent-index.json) aligned when entry points, commands, paths, work routing, or known risks change. Prefer links over duplicated prose.
+
+Historical evidence should remain historically accurate; add a supersession note rather than rewriting history.

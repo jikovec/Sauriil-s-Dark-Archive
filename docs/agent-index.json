@@ -1,9 +1,10 @@
 {
   "repo_name": "Sauriil-s-Dark-Archive",
-  "repo_purpose": "Non-destructive cross-platform icon-theme asset project for Windows 11 and Arch Linux/KDE Plasma.",
-  "last_reviewed": "2026-07-09",
+  "repo_purpose": "Cross-platform icon-theme asset, conversion, platform-output, documentation, and proof project for Windows 11 and Arch Linux/KDE Plasma.",
+  "last_reviewed": "2026-09-30",
   "primary_languages_and_tooling": [
     "Python asset conversion and validation scripts",
+    "Pillow for image processing when source images are present",
     "PowerShell Windows dry-run/apply/rollback scripts",
     "Bash Linux dry-run/apply/rollback scripts",
     "CSV mapping manifests",
@@ -13,6 +14,10 @@
   "important_paths": {
     "root_index": "00_Index.md",
     "agent_instructions": "AGENTS.md",
+    "contributing": "CONTRIBUTING.md",
+    "security": "SECURITY.md",
+    "support": "SUPPORT.md",
+    "changelog": "CHANGELOG.md",
     "docs": "docs/",
     "proof": "proof/",
     "reports": "reports/",
@@ -29,6 +34,10 @@
     "README.md",
     "00_Index.md",
     "AGENTS.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "SUPPORT.md",
+    "CHANGELOG.md",
     "docs/INDEX.md",
     "docs/current-state.md",
     "docs/agent-index.md",
@@ -37,6 +46,18 @@
     "reports/INDEX.md",
     "handoffs/INDEX.md"
   ],
+  "work_management": {
+    "technical_truth": "Current repository source, configuration, mappings, scripts, assets, and verification evidence.",
+    "operational_truth": "Current GitHub Issues and pull requests.",
+    "material_workflow": [
+      "Issue / work object",
+      "branch",
+      "implementation",
+      "verification",
+      "pull request"
+    ],
+    "merge_release_deploy_require_explicit_authority": true
+  },
   "source_areas": [
     {
       "path": "source/master/raster",
@@ -73,10 +94,10 @@
     "docs/proof-checklist.md"
   ],
   "docs_safe_checks": [
-    "git status --short",
+    "git status --short --branch",
     "git diff --check",
     "python -m json.tool docs/agent-index.json",
-    "PowerShell Markdown link scan over changed Markdown files"
+    "Markdown relative-link scan over changed documentation"
   ],
   "conversion_and_proof_commands": [
     "python scripts/convert/normalize_pngs.py --apply",
@@ -94,8 +115,9 @@
   ],
   "mutating_proof_command_notes": [
     "Conversion commands with --apply write generated assets.",
-    "Contact sheet rendering with --apply writes generated contact sheets.",
-    "Validation and dry-run proof commands can append to or rewrite files under proof/."
+    "Contact-sheet rendering with --apply writes generated contact sheets.",
+    "Validation and dry-run proof commands can append to or rewrite files under proof/.",
+    "scripts/validate/validate_mappings.py currently rewrites proof/known-gaps.md with obsolete skeleton-era text; see GitHub Issue #7 before using it to regenerate current proof."
   ],
   "dry_run_commands": [
     "powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1",
@@ -119,32 +141,20 @@
       "requires_explicit_user_request": true
     }
   ],
-  "report_locations": [
-    "reports/INDEX.md",
-    "reports/2026-07-09-docs-indexing-hardening.md",
-    "reports/obsidian-agent-indexing-plan.md",
-    "reports/2026-07-09-docs-indexing-implementation.md",
-    "reports/2026-07-07-memory-workflow-validation.md",
-    "reports/multi-repo-finalization-2026-07-07.md"
-  ],
-  "handoff_locations": [
-    "handoffs/INDEX.md"
-  ],
-  "decision_locations": [
-    "docs/decisions.md"
-  ],
   "safety_rules": [
-    "Preserve runtime and product behavior unless explicitly asked to change it.",
-    "Do not run live OS apply or rollback commands without an explicit user request.",
+    "Preserve product behavior unless the work item explicitly asks to change it.",
+    "Do not run live OS apply or apply-rollback commands without an explicit user request.",
+    "An apply gate is an authorization guard, not proof of safe behavior.",
     "Do not edit or regenerate VERSIONS/ release archives unless explicitly requested.",
-    "Do not commit, push, tag, release, deploy, reset, stash, or discard changes unless explicitly requested.",
-    "Treat source/config/scripts/mappings/assets as higher truth than docs when conflicts appear.",
-    "Mark inferred information clearly."
+    "Preserve unrelated dirty and untracked work.",
+    "Do not merge, deploy, publish, release, or tag unless explicitly authorized.",
+    "Treat current source/configuration and verification evidence as higher technical truth than documentation when conflicts appear.",
+    "Mark inference clearly."
   ],
   "sensitive_path_rules": [
     "Keep .obsidian/ ignored and untracked.",
     "Do not include secrets, credentials, tokens, private keys, private URLs, account identifiers, .env contents, or sensitive local paths in docs or indexes.",
-    "Do not add Obsidian sync, cloud sharing, account coupling, encryption setup, or company integrations."
+    "Do not add Obsidian sync, cloud sharing, account coupling, encryption setup, or company integrations unless explicitly requested."
   ],
   "obsidian_conventions": {
     "canonical_links": "Use normal Markdown links in committed docs.",
@@ -161,54 +171,31 @@
       "handoffs/INDEX.md"
     ]
   },
-  "tag_taxonomy": {
-    "global_tags": [
-      "#repo/index",
-      "#repo/architecture",
-      "#repo/development",
-      "#repo/testing",
-      "#repo/security",
-      "#repo/release",
-      "#repo/decision",
-      "#repo/source-map",
-      "#repo/connection-map",
-      "#agent/orientation",
-      "#agent/handoff",
-      "#agent/report",
-      "#obsidian/local",
-      "#obsidian/graph"
-    ],
-    "repo_tags": [
-      "#sauriil/theme",
-      "#sauriil/assets",
-      "#sauriil/v0-0-2",
-      "#sauriil/windows",
-      "#sauriil/linux",
-      "#sauriil/kde",
-      "#sauriil/mappings",
-      "#sauriil/proof",
-      "#sauriil/rollback",
-      "#sauriil/release-archive"
-    ],
-    "forbidden_tags": [
-      "#obsidian/sync",
-      "#deployment/cloud",
-      "#windows/live-registry-applied",
-      "#linux/system-install",
-      "#security/guarantee"
-    ]
-  },
   "known_risks": [
-    "Live Windows apply, Linux install, and apply rollback behavior are not proven by current proof reports.",
-    "Historical docs under DOCUMENTATION/ may contain skeleton-era wording.",
-    "Proof generators can mutate proof files.",
-    "Release ZIP archives under VERSIONS/ should be preserved unless explicitly requested.",
+    "Linux apply can mutate the user theme before all required desktop-override inputs are validated; GitHub Issue #2.",
+    "Windows apply does not yet conform to the accepted stable-icon-storage and lossless-rollback contract; GitHub Issue #3.",
+    "Apply/rollback safety lacks non-destructive regression coverage; GitHub Issue #4.",
+    "Current captured proof lacks a Windows PowerShell dry-run execution; GitHub Issue #5.",
+    "Unmapped exporter contexts can fall back to unrelated assets; GitHub Issue #6.",
+    "Mapping validation can overwrite current known-gap evidence with obsolete skeleton text; GitHub Issue #7.",
+    "A protected WinRAR archive change on current main requires provenance review; GitHub Issue #8.",
+    "No repository license, Code of Conduct, or private security-reporting route is selected/published; GitHub Issue #11.",
     "There is no package manifest, Makefile, CI workflow, or unit-test framework."
+  ],
+  "owner_decisions": [
+    {
+      "issue": 11,
+      "topics": [
+        "repository license",
+        "Code of Conduct selection",
+        "private vulnerability-reporting route"
+      ]
+    }
   ],
   "omitted_artifacts": [
     {
       "path": ".agents/index.json",
-      "reason": "Omitted because the repo has no .agents/ convention and docs/agent-index.json is sufficient."
+      "reason": "Omitted because the repo has no .agents/ convention and docs/agent-index.json is canonical."
     },
     {
       "path": "docs/adr/",
