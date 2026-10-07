@@ -90,3 +90,16 @@ bash scripts/rollback/linux_rollback_user_theme.sh --apply
 - Documentation-only changes: use docs-safe checks and link validation.
 - Release archive work: do not modify `VERSIONS/` unless requested.
 - Live OS apply or rollback: re-read [security-model.md](security-model.md), [deployment.md](deployment.md), and the exact script before running anything.
+
+## Agent Toolkit Checks
+
+```bash
+python3 scripts/validate/validate_agent_toolkit.py
+python3 -m json.tool docs/agent-index.json
+git diff --check
+```
+
+The toolkit check reads files only and uses Python 3's standard library. It checks
+constrained JSON-compatible YAML metadata/frontmatter, required files, thin adapter
+parity, repository-relative links and routing-example coverage. It does not prove
+provider discovery, model routing behavior, visual acceptance or live safety.

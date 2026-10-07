@@ -1,53 +1,85 @@
-<!-- codex-memory-scaffold:agents-workflow -->
-## Codex Project Memory Workflow
+# Sauriil's Dark Archive agent contract
 
-This repository is a local-first documentation and asset vault for the Sauriil Dark Archive icon theme. Treat it as a non-destructive asset/conversion/proof project unless the user explicitly asks for live OS apply or rollback behavior.
+## Identity and start
 
-## Start Here
+This is **Sauriil’s theme**, the non-destructive Windows 11 and Arch Linux/KDE
+icon-theme asset, conversion and proof project, in `jikovec/Sauriil-s-Dark-Archive`.
+It is separate from Elder Scrolls gameplay and lore. Address the owner as Aetheris
+for project work and match the request's language.
+
+Stable project/repository identity and environment discovery live in
+[.agent/project.yaml](.agent/project.yaml). The toolkit map is
+[.agent/README.md](.agent/README.md). No provider adapter owns project policy.
 
 Before meaningful work, read:
 
-1. [00_Index.md](00_Index.md)
-2. [docs/INDEX.md](docs/INDEX.md)
-3. [docs/current-state.md](docs/current-state.md)
-4. [docs/decisions.md](docs/decisions.md)
-5. [docs/agent-index.md](docs/agent-index.md)
+1. [00_Index.md](00_Index.md) and [docs/INDEX.md](docs/INDEX.md).
+2. [docs/current-state.md](docs/current-state.md).
+3. [docs/decisions.md](docs/decisions.md).
+4. [docs/agent-index.md](docs/agent-index.md).
+5. The relevant canonical skill and applicable scoped instructions.
 
-Then inspect the task-specific source of truth:
+## Authority and scope
 
-- Commands and validation: [docs/commands.md](docs/commands.md), [docs/testing.md](docs/testing.md), [docs/proof-checklist.md](docs/proof-checklist.md)
-- Architecture and source layout: [docs/architecture.md](docs/architecture.md), [docs/source-map.md](docs/source-map.md), [docs/connections.md](docs/connections.md)
-- Security and apply boundaries: [docs/security-model.md](docs/security-model.md), [docs/deployment.md](docs/deployment.md), [docs/rollback.md](docs/rollback.md)
-- Obsidian conventions: [docs/obsidian.md](docs/obsidian.md)
-- Reports and handoffs: [reports/INDEX.md](reports/INDEX.md), [handoffs/INDEX.md](handoffs/INDEX.md)
+Complete the assigned outcome, relevant verification and its authorized delivery.
+Preserve architecture, terminology and unrelated work; follow-ups normally steer
+that outcome. Record adjacent findings separately instead of broadening the task.
 
-## Source Of Truth
+The owner-adopted [authorization contract](.agent/contracts/authorization.md)
+grants ordinary source workflow for requested work in this user-owned repository,
+through commit, push, PR, checks/review remediation and merge. Local-only requests
+narrow that endpoint. Release, deployment, publication and OS activation require
+their own requested scope. Capability and identity labels do not grant authority.
 
-- Prefer source/config/scripts/mappings/assets over docs when they conflict: `scripts/`, `mappings/`, `source/`, `windows/`, `linux/Sauriil-Dark-Archive/index.theme`.
-- Prefer proof reports over inferred notes for validation status, especially [proof/v0.0.2-validation-report.md](proof/v0.0.2-validation-report.md).
-- Treat [README.md](README.md), this file, [00_Index.md](00_Index.md), and active docs under `docs/` as the human orientation layer.
-- Treat `DOCUMENTATION/` as historical context unless a current doc or proof report points to it.
-- Mark inferred information clearly.
+This adoption supersedes the old blanket explicit-per-command Git prohibition
+for ordinary source delivery only. It preserves all protected asset, privacy,
+release and live-OS boundaries. Revalidate policy before consequential effects.
+Never bypass external protections, required reviews, IAM or provider controls.
 
-## Safety Rules
+## Evidence and preservation
 
-- Preserve runtime and product behavior unless the user explicitly asks for a behavior change.
-- Do not commit, push, tag, release, deploy, publish, reset, stash, or discard changes unless explicitly requested.
-- Do not edit or regenerate `VERSIONS/` release archives unless explicitly requested.
-- Do not copy secrets, credentials, tokens, private keys, account identifiers, private URLs, `.env` contents, or sensitive local paths into docs or indexes.
-- Keep Obsidian local-first and plaintext. Keep `.obsidian/` ignored and untracked.
-- Do not add Obsidian sync, cloud sharing, account coupling, encryption setup, or company integrations.
+Inspect source and current Git state before changes. Retrieve live GitHub Issues,
+PRs and relevant checks before reconstructing work; reports are historical context.
+[Core](.agent/contracts/core.md) defines technical evidence and preservation;
+[Git/GitHub](.agent/contracts/git-github.md) defines source delivery.
 
-## Command Boundaries
+Preserve unrelated dirty, untracked and concurrent work. Use isolation when needed;
+never broadly stage, reset, stash, discard or rewrite protected history by default.
+Use bounded independent agents only when delegation is permitted and useful;
+retain responsibility for integration and final verification.
 
-- Proof and conversion commands can mutate generated assets or proof files. Run them only when regeneration is in scope.
-- Windows apply requires `-Apply`; Linux install/rollback apply requires `--apply`. Do not run apply-capable commands without an explicit user request.
-- Prefer docs-safe checks for documentation work: `git diff --check`, JSON validation for `docs/agent-index.json`, and Markdown link scans.
+Do not fabricate results. Distinguish local candidate, commit, remote source,
+hosted checks, deployment identity and observed live acceptance.
 
-## After Meaningful Changes
+## Project invariants
 
-- Update [docs/current-state.md](docs/current-state.md) when repo status or source-of-truth routing changes.
-- Update [docs/agent-index.json](docs/agent-index.json) when entry points, commands, safety rules, paths, tags, or known risks change.
-- Add a dated note under `handoffs/` when work is intentionally left unfinished.
-- Add a report under `reports/` when durable evidence or implementation context should stay in the repo.
-<!-- /codex-memory-scaffold:agents-workflow -->
+- Preserve product/runtime behavior unless a behavior change is requested.
+- Keep original raster assets and their conversion provenance; no fake SVG wrapping.
+- Do not inspect, edit or regenerate `VERSIONS/` without explicit archive scope.
+- Proof/conversion commands can write assets and evidence; run only within that scope.
+- Live apply and rollback require explicit target-OS scope and current script review.
+- Windows apply requires `-Apply`; Linux apply requires `--apply` and stays user-scoped.
+- Do not write system icon directories or infer live safety from historical proof.
+- Keep `.obsidian/` ignored, local and plaintext; no sync/account/cloud integration.
+- Never commit secrets, private exports, account IDs or sensitive machine paths.
+
+## Discovery and checks
+
+Canonical skills are under [skills/](skills/); reusable project reasoning is under
+[skills/project/](skills/project/). Codex adapters use `.agents/skills/`, with
+a `.codex/skills/` compatibility pointer; Claude adapters use `.claude/skills/`.
+`CLAUDE.md` imports this file. Adapters must point to canonical content.
+
+Use [commands](docs/commands.md), [testing](docs/testing.md) and the
+[asset-proof workflow](.agent/workflows/asset-proof.md) for relevant native tools.
+Missing runtimes are blocked prerequisites, not successful checks. For toolkit
+edits, run `python3 scripts/validate/validate_agent_toolkit.py` and `git diff --check`.
+
+Load [memory](.agent/contracts/memory.md) and [scopes](.agent/contracts/scopes.md)
+only for persistent context, registry, cross-project or promotion work. Memory is
+context, never current authority. Provider availability does not enroll a project.
+
+After meaningful routing changes update `docs/current-state.md` and
+`docs/agent-index.json`; record decisions in `docs/decisions.md`, durable evidence
+in `reports/`, and unfinished work in `handoffs/`. Use the
+[handoff contract](.agent/contracts/handoff.md) to report the actual endpoint.

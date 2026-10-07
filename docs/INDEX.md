@@ -55,3 +55,12 @@ This is the GitHub-compatible documentation hub for Sauriil Dark Archive. The ro
 - Prefer normal Markdown links over Obsidian-only wiki links inside `docs/`.
 - Keep tags on durable hubs and reports, not generated proof detail rows.
 - Update [agent-index.json](agent-index.json) after meaningful changes to commands, paths, risks, tags, or entry points.
+
+## Repository agent toolkit
+
+- [Canonical toolkit](../.agent/README.md)
+- [Stable project metadata](../.agent/project.yaml)
+- [Project workflow](../skills/project/sauriil-dark-archive-workflow/SKILL.md)
+- [Routing evaluations](../.agent/evals/skill-routing.md)
+
+Inspect live related Issues, PRs and required checks before reconstructing unfinished work.
