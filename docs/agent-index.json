@@ -1,7 +1,7 @@
 {
   "repo_name": "Sauriil-s-Dark-Archive",
   "repo_purpose": "Non-destructive cross-platform icon-theme asset project for Windows 11 and Arch Linux/KDE Plasma.",
-  "last_reviewed": "2026-07-09",
+  "last_reviewed": "2026-10-07",
   "primary_languages_and_tooling": [
     "Python asset conversion and validation scripts",
     "PowerShell Windows dry-run/apply/rollback scripts",
@@ -23,7 +23,17 @@
     "scripts": "scripts/",
     "windows_outputs": "windows/",
     "linux_outputs": "linux/",
-    "release_archives": "VERSIONS/"
+    "release_archives": "VERSIONS/",
+    "project_metadata": ".agent/project.yaml",
+    "agent_toolkit": ".agent/README.md",
+    "canonical_skills": "skills/",
+    "project_skill": "skills/project/sauriil-dark-archive-workflow/SKILL.md",
+    "codex_discovery": ".agents/skills/",
+    "codex_compatibility": ".codex/skills/",
+    "claude_discovery": ".claude/skills/",
+    "claude_instructions": "CLAUDE.md",
+    "agent_workflow": "docs/agent-workflow.md",
+    "toolkit_validator": "scripts/validate/validate_agent_toolkit.py"
   },
   "docs_entry_points": [
     "README.md",
@@ -35,7 +45,10 @@
     "docs/source-map.md",
     "docs/connections.md",
     "reports/INDEX.md",
-    "handoffs/INDEX.md"
+    "handoffs/INDEX.md",
+    ".agent/README.md",
+    ".agent/project.yaml",
+    "docs/agent-workflow.md"
   ],
   "source_areas": [
     {
@@ -75,8 +88,8 @@
   "docs_safe_checks": [
     "git status --short",
     "git diff --check",
-    "python -m json.tool docs/agent-index.json",
-    "PowerShell Markdown link scan over changed Markdown files"
+    "python3 -m json.tool docs/agent-index.json",
+    "python3 scripts/validate/validate_agent_toolkit.py"
   ],
   "conversion_and_proof_commands": [
     "python scripts/convert/normalize_pngs.py --apply",
@@ -125,7 +138,8 @@
     "reports/obsidian-agent-indexing-plan.md",
     "reports/2026-07-09-docs-indexing-implementation.md",
     "reports/2026-07-07-memory-workflow-validation.md",
-    "reports/multi-repo-finalization-2026-07-07.md"
+    "reports/multi-repo-finalization-2026-07-07.md",
+    "reports/2026-10-07-agent-toolkit-bootstrap.md"
   ],
   "handoff_locations": [
     "handoffs/INDEX.md"
@@ -137,9 +151,10 @@
     "Preserve runtime and product behavior unless explicitly asked to change it.",
     "Do not run live OS apply or rollback commands without an explicit user request.",
     "Do not edit or regenerate VERSIONS/ release archives unless explicitly requested.",
-    "Do not commit, push, tag, release, deploy, reset, stash, or discard changes unless explicitly requested.",
     "Treat source/config/scripts/mappings/assets as higher truth than docs when conflicts appear.",
-    "Mark inferred information clearly."
+    "Mark inferred information clearly.",
+    "Ordinary scoped source delivery through merge follows .agent/contracts/authorization.md; local-only requests narrow it. Release, archives and live OS operations require separate scope.",
+    "Memory is contextual; no automatic persistence or scope promotion."
   ],
   "sensitive_path_rules": [
     "Keep .obsidian/ ignored and untracked.",
@@ -208,11 +223,12 @@
   "omitted_artifacts": [
     {
       "path": ".agents/index.json",
-      "reason": "Omitted because the repo has no .agents/ convention and docs/agent-index.json is sufficient."
+      "reason": "docs/agent-index.json provides navigation and .agent/project.yaml provides identity; .agents/skills contains discovery adapters only."
     },
     {
       "path": "docs/adr/",
       "reason": "Omitted because docs/decisions.md is sufficient for the current decision volume."
     }
-  ]
+  ],
+  "display_name": "Sauriil’s theme"
 }

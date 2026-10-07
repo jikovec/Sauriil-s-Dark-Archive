@@ -26,3 +26,5 @@ Release proof reports live under [../proof](../proof), not `reports/`:
 - Reports should state scope, files inspected, files changed, commands run, skipped checks, risks, and readiness.
 - Do not include secrets, credentials, private local paths, or account data.
 - Link to source, docs, proof, and handoffs instead of duplicating large content.
+
+- [2026-10-07 agent toolkit bootstrap](2026-10-07-agent-toolkit-bootstrap.md)

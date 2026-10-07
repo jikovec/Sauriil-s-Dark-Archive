@@ -37,3 +37,12 @@
 ## Machine Index
 
 Use [agent-index.json](agent-index.json) for machine-readable routing. Update it when paths, commands, tags, risks, or entry points change.
+
+## Repository agent toolkit
+
+- [Canonical toolkit](../.agent/README.md)
+- [Stable project metadata](../.agent/project.yaml)
+- [Project workflow](../skills/project/sauriil-dark-archive-workflow/SKILL.md)
+- [Routing evaluations](../.agent/evals/skill-routing.md)
+
+Inspect live related Issues, PRs and required checks before reconstructing unfinished work.

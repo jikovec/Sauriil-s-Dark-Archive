@@ -64,3 +64,16 @@ Expected result: commands write or print planned changes only. No registry write
 
 - There is no separate unit-test framework or package manifest.
 - Proof commands can mutate files under `proof/`; do not run them during a docs-only pass unless proof regeneration is explicitly part of the task.
+
+## Agent Toolkit Checks
+
+```bash
+python3 scripts/validate/validate_agent_toolkit.py
+python3 -m json.tool docs/agent-index.json
+git diff --check
+```
+
+The toolkit check reads files only and uses Python 3's standard library. It checks
+constrained JSON-compatible YAML metadata/frontmatter, required files, thin adapter
+parity, repository-relative links and routing-example coverage. It does not prove
+provider discovery, model routing behavior, visual acceptance or live safety.

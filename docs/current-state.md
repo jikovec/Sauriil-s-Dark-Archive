@@ -3,11 +3,29 @@
 
 #repo/index #sauriil/v0-0-2
 
-Last reviewed: 2026-07-09.
+Last reviewed: 2026-10-07 (agent toolkit/source routing only; asset proof not rerun).
+
+## Agent Toolkit
+
+The [portable toolkit](../.agent/README.md) provides eleven baseline workflows and
+one reconciled theme workflow under `skills/`. Stable metadata lives in
+[.agent/project.yaml](../.agent/project.yaml); native adapters contain no policy.
+Codex uses `.agents/skills/`, `.codex/skills/` provides a compatibility pointer, and
+Claude uses `.claude/skills/` plus the AGENTS import in `CLAUDE.md`.
+
+Mind-Seed is disabled: bounded registry discovery found no matching entry and no
+verified memory-scope binding. No mutable memory is stored in Git or written by
+this setup. See [bootstrap evidence](../reports/2026-10-07-agent-toolkit-bootstrap.md).
+
+The owner-adopted authorization contract covers ordinary requested source delivery
+through merge. Explicit release/archive and target-OS boundaries remain. Retrieve
+live Issues and PRs for work state; PR #12 overlaps governance files and was kept
+separate during bootstrap. Historical safety proof below is not live qualification;
+Issues #1–#8 track existing source/proof/archive concerns.
 
 ## Project Purpose
 
-Sauriil Dark Archive is a non-destructive cross-platform icon-theme asset project for Windows 11 and Arch Linux/KDE Plasma.
+Sauriil’s theme (Sauriil Dark Archive) is a non-destructive cross-platform icon-theme asset project for Windows 11 and Arch Linux/KDE Plasma.
 
 ## Current Release State
 

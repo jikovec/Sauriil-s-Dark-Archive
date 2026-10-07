@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "project": {
+    "id": "github:jikovec/Sauriil-s-Dark-Archive",
+    "name": "Sauriil’s theme",
+    "type": "other"
+  },
+  "repository": {
+    "host": "github",
+    "owner": "jikovec",
+    "name": "Sauriil-s-Dark-Archive",
+    "default_branch": "main",
+    "canonical_remote": "origin"
+  },
+  "organization": {
+    "id": null,
+    "name": null
+  },
+  "ownership": {
+    "class": "user-owned"
+  },
+  "agent": {
+    "instructions": "AGENTS.md",
+    "canonical_skills": "skills/",
+    "project_specific_skills": "skills/project/"
+  },
+  "environment": {
+    "primary_runtime": "Python 3",
+    "package_manager": null,
+    "required_tools": [
+      "git",
+      "Python 3 (documentation and asset scripts)",
+      "Pillow (asset conversion/rendering only)",
+      "Bash (Linux planners/apply)",
+      "PowerShell (Windows planners/apply)",
+      "gh or authenticated GitHub connector (source delivery)"
+    ],
+    "source_files": [
+      "docs/commands.md",
+      "docs/testing.md",
+      "scripts/convert/normalize_pngs.py",
+      "linux/Sauriil-Dark-Archive/index.theme"
+    ]
+  },
+  "integrations": {
+    "directory": ".agent/integrations/"
+  },
+  "workflows": {
+    "directory": ".agent/workflows/"
+  },
+  "mind_seed": {
+    "enabled": false,
+    "binding": null
+  }
+}

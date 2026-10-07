@@ -77,3 +77,12 @@ This repo root is configured as a local Obsidian vault for project documentation
 - Keep `.obsidian/` ignored and untracked.
 - Store durable reports in `reports/` and unfinished-work handoffs in `handoffs/`.
 - Update [docs/agent-index.json](docs/agent-index.json) after meaningful changes to commands, safety rules, paths, tags, or entry points.
+
+## Repository agent toolkit
+
+- [Canonical toolkit](.agent/README.md)
+- [Stable project metadata](.agent/project.yaml)
+- [Project workflow](skills/project/sauriil-dark-archive-workflow/SKILL.md)
+- [Routing evaluations](.agent/evals/skill-routing.md)
+
+Inspect live related Issues, PRs and required checks before reconstructing unfinished work.
