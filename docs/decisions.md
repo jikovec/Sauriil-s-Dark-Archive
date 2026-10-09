@@ -16,6 +16,13 @@
 
 ## Decision Log
 
+### 2026-10-09 - Explicit Claude invocation for release, deploy and publish
+
+- Context: The owner requested that Claude Code never invoke deployment, publication or release skills automatically, without a second copy of the workflows.
+- Decision: Only the Claude adapters for `release`, `deploy` and `publish` add `disable-model-invocation: true`. They stay discoverable and run on an explicit `/release`, `/deploy` or `/publish`. Canonical skills and Codex adapters keep portable name/description metadata.
+- Consequences: The toolkit validator requires the field on exactly those three Claude adapters and rejects it elsewhere. Claude can still read canonical workflows routed by AGENTS.md; release and deployment authority is unchanged.
+- References: [toolkit index](../.agent/README.md), [toolkit validator](../scripts/validate/validate_agent_toolkit.py).
+
 ### 2026-10-07 - Portable repository agent toolkit
 
 - Context: The owner requested durable canonical workflows and thin Codex/Claude adapters, including a standing ordinary source-delivery grant for user-owned repositories.

@@ -2,7 +2,9 @@
 """Read-only toolkit conformance checks; Python 3 standard library only.
 
 project.yaml uses YAML 1.2's JSON subset. Skill frontmatter deliberately uses
-exactly two YAML scalar fields with JSON-quoted string values, not general YAML.
+exactly two YAML scalar fields with JSON-quoted string values, not general YAML;
+the Claude release, deploy and publish adapters add one fixed
+`disable-model-invocation: true` line.
 This checker validates that portable subset rather than accepting arbitrary YAML.
 """
 from __future__ import annotations
@@ -19,6 +21,9 @@ BASELINE = ('build', 'investigate', 'research', 'verify', 'review', 'fix',
 CONTRACTS = ('core', 'authorization', 'verification', 'git-github',
              'deployment', 'handoff', 'memory', 'scopes')
 NATIVE = ('.agents', '.claude')
+# Claude Code loads these adapters only on an explicit /name invocation.
+CLAUDE_USER_ONLY = frozenset({'release', 'deploy', 'publish'})
+CLAUDE_GATE = 'disable-model-invocation: true'
 ERRORS: list[str] = []
 
 
@@ -35,14 +40,21 @@ def read(path: Path) -> str:
         return ''
 
 
-def frontmatter(path: Path) -> dict[str, str]:
+def frontmatter(path: Path, claude_gate: bool = False) -> dict[str, str]:
     text = read(path)
     match = re.match(r'\A---\n(.*?)\n---\n', text, re.S)
     if not match:
         ERRORS.append(f'{path.relative_to(ROOT)}: missing frontmatter')
         return {}
+    lines = match[1].splitlines()
+    if claude_gate:
+        require(lines.count(CLAUDE_GATE) == 1,
+                f'{path.relative_to(ROOT)}: requires {CLAUDE_GATE} for explicit-only Claude invocation')
+    elif any(line.startswith('disable-model-invocation:') for line in lines):
+        ERRORS.append(f'{path.relative_to(ROOT)}: disable-model-invocation is reserved for '
+                      'the Claude release, deploy and publish adapters')
     result = {}
-    for line in match[1].splitlines():
+    for line in (line for line in lines if not line.startswith('disable-model-invocation:')):
         key, sep, raw = line.partition(': ')
         if not sep or key not in ('name', 'description') or key in result:
             ERRORS.append(f'{path.relative_to(ROOT)}: invalid or duplicate scalar field')
@@ -118,7 +130,8 @@ def main() -> int:
         descriptions.append(fm.get('description'))
         for provider in NATIVE:
             adapter = ROOT / provider / 'skills' / skill.parent.name / 'SKILL.md'
-            require(frontmatter(adapter) == fm, f'{adapter}: adapter metadata drift')
+            gated = provider == '.claude' and skill.parent.name in CLAUDE_USER_ONLY
+            require(frontmatter(adapter, gated) == fm, f'{adapter}: adapter metadata drift')
             expected = ('Read and follow the [canonical workflow](../../../'
                         + skill.relative_to(ROOT).as_posix() + ') before acting.\n'
                         'Also follow [AGENTS.md](../../../AGENTS.md) and applicable scoped instructions.\n'

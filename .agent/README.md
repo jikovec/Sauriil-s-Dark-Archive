@@ -27,7 +27,11 @@ uses `.agents/skills/`. Native discovery here also scans `.codex/skills/`, so th
 directory contains a compatibility README only to avoid duplicate skill entries.
 The [Claude skill location](https://code.claude.com/docs/en/skills) is
 `.claude/skills/`; [CLAUDE imports](https://code.claude.com/docs/en/memory) reuse
-AGENTS.md without copying policy. No provider permission configuration is changed.
+AGENTS.md without copying policy. The Claude adapters for `release`, `deploy` and
+`publish` also set `disable-model-invocation: true`, so Claude Code loads them only
+on an explicit `/release`, `/deploy` or `/publish`. Canonical skills and Codex
+adapters keep the portable name/description metadata, and the validator enforces
+both forms. No provider permission configuration is changed.
 
 Read memory/scope contracts only for persistent context, registry, relationships
 or promotion. No external registry identity is inferred from a filesystem path,
