@@ -2,19 +2,20 @@
 
 #repo/release #repo/development #sauriil/theme
 
-This roadmap records bounded next steps from current docs and proof. It is not a commitment to live OS changes.
+This roadmap records bounded candidate work. Current GitHub Issues and pull requests are the operational work ledger; this file is not a substitute for live work state and does not authorize live OS changes.
 
 ## Current Baseline
 
-- `v0.0.2` generated 12 accepted raster source icons.
+- `v0.0.2` contains 12 accepted raster source icons.
 - Windows ICO outputs exist for apps, file types, and folders.
 - Linux PNG fallbacks exist for apps, places, and mimetypes.
-- Proof reports record passing structure, mapping, `index.theme`, contact sheet, and dry-run checks.
-- Live OS apply/install is not proven.
+- Historical v0.0.2 proof records successful asset/structure/mapping/`index.theme`/Linux-dry-run checks for its recorded revision and environment.
+- Live OS apply/rollback safety is not established.
+- Current implementation/safety defects are tracked in GitHub Issues; see [current-state.md](current-state.md).
 
 ## Candidate v0.0.3 Asset Batch
 
-Existing `v0.0.2` docs suggest a bounded next batch:
+Existing `v0.0.2` docs suggest a bounded candidate batch:
 
 - `drive-harddisk`
 - `drive-removable-media`
@@ -25,26 +26,26 @@ Existing `v0.0.2` docs suggest a bounded next batch:
 - `application-pdf`
 - `text-html`
 
-Before implementation, re-check current source, mappings, and user intent.
+Before implementation, re-check current source, mappings, live work state, and user intent.
 
-## Documentation Roadmap
+## Documentation Maintenance
 
 - Keep [current-state.md](current-state.md), [source-map.md](source-map.md), [connections.md](connections.md), and [agent-index.json](agent-index.json) current after meaningful changes.
-- Add task-specific handoffs under `handoffs/` only when work is incomplete or needs continuation context.
-- Add reports under `reports/` when validation evidence, implementation notes, or review findings should remain durable.
+- Add handoffs under `handoffs/` only for unfinished work needing continuation context.
+- Add reports under `reports/` when durable validation, implementation, or review evidence is warranted.
 
-## Deferred Work
+## Deferred / Future Work
 
 - True scalable SVG icon set.
-- Live Windows apply proof.
-- Linux user-theme install and KDE activation proof.
-- Device, status, action, shell, symbolic, GNOME, and XFCE coverage.
+- Verified live Windows apply/rollback.
+- Verified Linux user-theme install/rollback and KDE activation.
+- Device, status, action, shell, symbolic, GNOME-specific, and XFCE-specific coverage.
 - Broader release packaging process.
 
-## Non-Goals
+## Non-Goals Without Separate Authorization
 
 - Cloud deployment.
-- Obsidian sync or account setup.
+- Obsidian sync/account setup.
 - System-wide Linux install.
 - Unrequested registry modification.
 - Editing release ZIP archives without explicit approval.

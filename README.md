@@ -1,29 +1,22 @@
 # Sauriil Dark Archive Icons
 
-Sauriil Dark Archive is a non-destructive cross-platform icon-theme asset project for Windows 11 and Arch Linux/KDE Plasma.
+Sauriil Dark Archive is a cross-platform icon-theme asset, conversion, platform-output, and proof project for Windows 11 and Arch Linux/KDE Plasma.
 
-Current version: `v0.0.2`.
+Current documented release: `v0.0.2`.
 
 ## Status
 
-v0.0.2 contains the first real asset batch:
+`v0.0.2` contains the first real asset batch:
 
-```txt
+```text
 apps:       sauriil-terminal, sauriil-browser, sauriil-code-editor, sauriil-file-manager
 places:     folder, folder-documents, folder-downloads, user-home
 mimetypes:  application-zip, application-x-rar, text-x-script, text-x-python
 ```
 
-Generated outputs include:
+Generated outputs include normalized PNGs, Windows multi-size ICOs, Linux PNG fallbacks, contact sheets, and proof reports.
 
-- master raster PNGs under `source/master/raster/`
-- normalized PNGs under `source/png/<size>/`
-- Windows multi-size `.ico` files under `windows/ico/apps/`, `windows/ico/filetypes/`, and `windows/ico/folders/`
-- Linux PNG fallbacks under `linux/Sauriil-Dark-Archive/<size>/<context>/`
-- v0.0.2 contact sheets under `source/master/contact-sheets/`
-- proof reports under `proof/`
-
-The package still does not install or apply icons to the live OS.
+Apply-capable Windows and Linux scripts exist, but live apply/rollback behavior is not established as safe by the current proof set. Concrete implementation and verification gaps are tracked in [GitHub Issues](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues), including the platform safety tracker [#1](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/1). Routine asset, documentation, and validation work must not require live OS changes.
 
 ## Visual identity
 
@@ -31,47 +24,57 @@ The icon direction is dark fantasy archive-machine utility design: black forged 
 
 The project avoids copied Elder Scrolls, Dark Brotherhood, Aldmeri, Microsoft, KDE, GNOME, Arch, WinRAR, Python, browser, file-manager, editor, and other protected official symbols.
 
-## Safety model
+## Repository model
 
-All live-changing scripts are dry-run gated.
+- Accepted raster masters: `source/master/raster/`
+- Generated normalized PNGs: `source/png/<size>/`
+- Windows outputs: `windows/ico/`
+- Linux XDG theme outputs: `linux/Sauriil-Dark-Archive/`
+- Routing/configuration manifests: `mappings/`
+- Conversion, validation, dry-run, apply, and rollback tools: `scripts/`
+- Validation/proof evidence: `proof/`
+- Active documentation: `docs/`
+- Historical implementation context: `DOCUMENTATION/`
+- Protected release archives: `VERSIONS/`
 
-- Windows apply script refuses to run without `-Apply`.
-- Linux install script refuses to run without `--apply`.
-- Registry-related workflows print backup/export plans before any future apply path.
-- Linux scripts target only `$HOME/.local/share/icons/Sauriil-Dark-Archive` and `$HOME/.local/share/applications`.
-- No script may write to `/usr/share/icons` or `/usr/share/applications`.
-- Missing mapped required icons fail validation.
+See [docs/architecture.md](docs/architecture.md) and [docs/source-map.md](docs/source-map.md) for the canonical structure.
+
+## Prerequisites
+
+The repository has no package manifest, installer, Makefile, or CI workflow.
+
+Relevant tools depend on the task:
+
+- Python 3 for validation and conversion scripts.
+- Pillow for image conversion/contact-sheet operations when source images are present.
+- Bash for Linux dry-run/apply/rollback scripts.
+- Windows PowerShell for Windows dry-run/apply/rollback scripts.
+
+Do not infer platform compatibility beyond what current source and proof establish.
 
 ## Validation
 
-Run from the repository root:
+For documentation/index changes, start with:
 
 ```bash
-python scripts/convert/normalize_pngs.py --apply
-python scripts/convert/export_windows_ico.py --context apps --apply
-python scripts/convert/export_windows_ico.py --context filetypes --apply
-python scripts/convert/export_windows_ico.py --context folders --apply
-python scripts/convert/export_linux_png_fallbacks.py --context apps --apply
-python scripts/convert/export_linux_png_fallbacks.py --context mimetypes --apply
-python scripts/convert/export_linux_png_fallbacks.py --context places --apply
-python scripts/test-render/render_contact_sheet.py --apply
-python scripts/validate/validate_structure.py
-python scripts/validate/validate_mappings.py
-python scripts/validate/validate_index_theme.py
-python scripts/validate/generate_dry_run_report.py
+git status --short --branch
+git diff --check
+python -m json.tool docs/agent-index.json
 ```
 
-Optional dry-run checks:
+Then run a Markdown relative-link scan over changed documentation.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1
-```
+Asset/proof commands and their mutation boundaries are documented in [docs/commands.md](docs/commands.md) and [docs/testing.md](docs/testing.md). Some current validators have tracked defects; read those documents and the live Issues before regenerating proof.
 
-```bash
-bash scripts/dry-run/linux_plan_install.sh
-```
+## Live OS boundary
 
-Proof files are written under `proof/`.
+Do not run apply or apply-rollback commands merely to validate the repository.
+
+- Linux installer preflight ordering is tracked in [#2](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/2).
+- Windows stable icon storage and lossless rollback are tracked in [#3](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/3).
+- Non-destructive regression coverage is tracked in [#4](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/4).
+
+An explicit `-Apply` or `--apply` gate is an authorization guard, not evidence that the underlying mutation is correct.
 
 ## Documentation
 

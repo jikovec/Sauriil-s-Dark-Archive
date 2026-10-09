@@ -3,64 +3,84 @@
 
 #repo/testing #sauriil/proof
 
-## Verification Layers
+## Verification Model
 
-- Docs-only verification: whitespace, JSON validity, and Markdown link checks.
-- Static asset proof: `validate_structure.py`, `validate_mappings.py`, and `validate_index_theme.py`.
-- Regeneration proof: conversion and contact-sheet commands that write generated assets.
-- Dry-run proof: Windows and Linux planners that document planned changes without applying them.
+The repository does not have a separate unit-test framework or CI workflow. Verification is currently script- and evidence-driven.
 
-## Docs-Only Checks
+Verification families:
 
-Use these when only documentation or indexes changed:
+- documentation/governance checks;
+- static structure and mapping validation;
+- asset regeneration checks;
+- XDG `index.theme` validation;
+- platform dry-run planning;
+- live apply/rollback verification, which is not currently established and is never implied by the earlier layers.
 
-```powershell
+## Documentation / Governance Checks
+
+For docs-only changes:
+
+```bash
+git status --short --branch
 git diff --check
 python -m json.tool docs/agent-index.json
 ```
 
-Run a Markdown link scan over changed `.md` files. Links are resolved relative to the containing file, not the repository root.
+Also validate relative Markdown links in changed documentation and syntax for any changed YAML/JSON/XML/metadata files.
 
-## Asset And Proof Checks
+## Static And Proof Checks
 
-Use these only when regenerating assets or proof evidence is intended:
+Repository commands are listed in [commands.md](commands.md) and [proof-checklist.md](proof-checklist.md).
 
-```bash
-python scripts/convert/normalize_pngs.py --apply
-python scripts/convert/export_windows_ico.py --context apps --apply
-python scripts/convert/export_windows_ico.py --context filetypes --apply
-python scripts/convert/export_windows_ico.py --context folders --apply
-python scripts/convert/export_linux_png_fallbacks.py --context apps --apply
-python scripts/convert/export_linux_png_fallbacks.py --context mimetypes --apply
-python scripts/convert/export_linux_png_fallbacks.py --context places --apply
-python scripts/test-render/render_contact_sheet.py --apply
-python scripts/validate/validate_structure.py
-python scripts/validate/validate_mappings.py
-python scripts/validate/validate_index_theme.py
-python scripts/validate/generate_dry_run_report.py
-```
+Important limitations:
 
-Expected result: generated assets exist, mapping rows point only to existing required assets, `linux/Sauriil-Dark-Archive/index.theme` is structurally valid, and no live OS install/apply action occurs.
+- `validate_structure.py` verifies required paths and token-level apply gates; it does not prove transactional apply/rollback safety. Regression coverage for those invariants is tracked in [#4](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/4).
+- `validate_mappings.py` currently rewrites `proof/known-gaps.md` with stale skeleton-era content; see [#7](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/7).
+- Exporters can select fallback assets for a context with no manifest rows; see [#6](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/6).
+- Proof-generating commands may mutate `proof/`; do not run them merely to validate documentation.
 
-## Dry-Run Proof
+## Platform Dry Runs
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1
-```
+Linux dry-run:
 
 ```bash
 bash scripts/dry-run/linux_plan_install.sh
 ```
 
-Expected result: commands write or print planned changes only. No registry write, shortcut change, `/usr/share` write, or install occurs.
+Windows dry-run, when PowerShell is available:
 
-## Current Evidence
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1
+```
 
-- [../proof/v0.0.2-validation-report.md](../proof/v0.0.2-validation-report.md) records passing `v0.0.2` structure, mapping, `index.theme`, contact sheet, and dry-run safety checks.
-- [../proof/known-gaps.md](../proof/known-gaps.md) records remaining release gaps.
-- [../reports/2026-07-09-docs-indexing-implementation.md](../reports/2026-07-09-docs-indexing-implementation.md) records docs/indexing verification for the local Obsidian and agent-orientation system.
+The captured v0.0.2 validation executed the Linux planner but skipped the Windows PowerShell planner. That missing evidence is tracked in [#5](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/5).
 
-## Notes
+## Live Apply / Rollback
+
+Live apply and apply-rollback commands are not acceptance tests.
+
+Current source has known safety gaps:
+- Linux preflight ordering: [#2](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/2)
+- Windows stable icon storage and lossless rollback: [#3](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/3)
+
+Do not claim live behavior is verified unless a future work item executes an authorized, appropriate verification and preserves the evidence.
+
+## Evidence Levels
+
+Use explicit statuses in reports:
+
+```text
+passed
+failed
+blocked
+unavailable
+not applicable
+not run
+```
+
+A historical passing report proves only the checks, revision, and environment it records. An unavailable check is not a pass.
+
+## Current Historical Evidence
 
 - There is no separate unit-test framework or package manifest.
 - Proof commands can mutate files under `proof/`; do not run them during a docs-only pass unless proof regeneration is explicitly part of the task.

@@ -25,7 +25,7 @@ Release proof reports live under [../proof](../proof), not `reports/`:
 
 ## Report Rules
 
-- Reports should state scope, files inspected, files changed, commands run, skipped checks, risks, and readiness.
+- Reports should state scope, files inspected, files changed, commands/checks run, skipped/unavailable checks, risks, and readiness.
 - Do not include secrets, credentials, private local paths, or account data.
 - Link to source, docs, proof, and handoffs instead of duplicating large content.
 

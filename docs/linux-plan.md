@@ -1,92 +1,77 @@
 # Linux / KDE Plasma Plan
 
-## Primary target
+## Status
 
-Arch Linux with KDE Plasma is the primary Linux target. The project uses a standard freedesktop/XDG icon-theme layout so that most of the work remains portable to GNOME and XFCE, but KDE is the first verification target.
+This file defines the accepted Linux/KDE target plan. It is not proof that the current installer already satisfies every preflight/rollback invariant.
 
-## Per-user install path
+Current implementation gap [#2](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/2) tracks preflight-before-mutation and desktop-override mapping semantics. Do not use live install as repository validation.
+
+## Primary Target
+
+Arch Linux with KDE Plasma is the primary Linux target. The project uses a freedesktop/XDG icon-theme layout so the asset structure remains broadly portable, while KDE is the first intended verification target.
+
+## Per-User Install Boundary
 
 Install only to user scope:
 
-```txt
+```text
 $HOME/.local/share/icons/Sauriil-Dark-Archive
 ```
 
-Do not write to `/usr/share/icons` in this skeleton or its scripts.
+Desktop overrides, when actually defined and managed, belong only under:
 
-## Theme metadata
+```text
+$HOME/.local/share/applications
+```
 
-The starter theme file is:
+Do not write to `/usr/share/icons` or `/usr/share/applications`.
 
-```txt
+## Theme Metadata
+
+The theme metadata is:
+
+```text
 linux/Sauriil-Dark-Archive/index.theme
 ```
 
-It declares:
+It inherits `breeze,hicolor` so missing icons can fall back rather than requiring modification of system-owned themes.
 
-```ini
-Name=Sauriil Dark Archive
-Comment=Dark fantasy archive-machine icon theme skeleton
-Inherits=breeze,hicolor
-```
+## Directory Model
 
-The theme inherits `breeze,hicolor` so missing icons fall back cleanly instead of vandalizing system-owned themes.
+The repository includes scalable placeholder contexts plus fixed PNG fallback directories from `16x16` through `256x256`. `v0.0.2` does not claim true scalable SVG artwork.
 
-## Directory model
+## Desktop Override Contract
 
-The skeleton includes:
+For a future managed override:
+1. define a real source override in repository mappings/source;
+2. validate every required/active row and source before any installed-theme mutation;
+3. copy only the managed override to user scope;
+4. record exactly what the project installed so rollback cannot delete unrelated files;
+5. rebuild relevant user caches only after successful install.
 
-- `scalable/apps`
-- `scalable/mimetypes`
-- `scalable/places`
-- `scalable/devices`
-- `scalable/status`
-- `scalable/actions`
-- `scalable/symbolic`
-- fixed PNG fallback directories for `16x16` through `256x256`, grouped by context.
+Empty/missing required override paths must have one explicit schema meaning and must not trigger a failure after the theme has already been replaced. Resolution is tracked in #2.
 
-## Desktop override strategy
+## MIME Icon Strategy
 
-Do not edit `/usr/share/applications`.
+Use standard MIME-style icon names where `/` becomes `-`, such as:
+- `application-x-rar`
+- `application-zip`
+- `text-x-python`
+- `text-x-script`
 
-For future app overrides:
+## Cache Refresh
 
-1. Copy a system `.desktop` file into `linux/desktop-overrides/` for source control.
-2. Change only the copied file's `Icon=` key to a theme icon name.
-3. Install the override only to `$HOME/.local/share/applications` in explicit apply mode.
-4. Rebuild KDE cache.
-
-## MIME icon strategy
-
-Use standard MIME-style icon names where `/` becomes `-`, for example:
-
-```txt
-application-x-rar
-application-zip
-text-x-python
-text-x-script
-```
-
-Place future scalable MIME art in `scalable/mimetypes/` and PNG fallbacks under fixed-size `mimetypes/` directories.
-
-## Cache refresh commands
-
-After a real future install:
+After a future authorized and successful install:
 
 ```bash
 gtk-update-icon-cache -f -t "$HOME/.local/share/icons/Sauriil-Dark-Archive" || true
 kbuildsycoca6 --noincremental || true
 ```
 
-If KDE still shows stale icons, log out and back in. Cache deletion is a troubleshooting step, not the default workflow.
+Cache deletion is troubleshooting, not the default workflow.
 
 ## Rollback
 
-Rollback is user-scope only:
+Rollback is user-scoped and must remove only state actually managed by this project. See [rollback.md](rollback.md).
 
-```bash
-rm -rf "$HOME/.local/share/icons/Sauriil-Dark-Archive"
-kbuildsycoca6 --noincremental || true
-```
-
-Remove only explicitly managed `.desktop` overrides from `$HOME/.local/share/applications`.
+Current live install/rollback behavior remains unproven until #2 and the related regression-verification work in [#4](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/4) are resolved and verified.

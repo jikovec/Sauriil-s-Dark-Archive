@@ -11,7 +11,7 @@ Stable project/repository identity and environment discovery live in
 [.agent/project.yaml](.agent/project.yaml). The toolkit map is
 [.agent/README.md](.agent/README.md). No provider adapter owns project policy.
 
-Before meaningful work, read:
+Before meaningful work:
 
 1. [00_Index.md](00_Index.md) and [docs/INDEX.md](docs/INDEX.md).
 2. [docs/current-state.md](docs/current-state.md).

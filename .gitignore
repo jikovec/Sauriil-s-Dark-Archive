@@ -1,2 +1,36 @@
 # Local Obsidian vault settings
 .obsidian/
+
+# Local worktree/agent scratch
+.worktrees/
+.superpowers/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+
+# Python and analysis caches
+**/__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.coverage
+/coverage/
+/htmlcov/
+
+# Disposable local build/temp output
+/build/
+/dist/
+/tmp/
+/temp/
+/backup/
+/backups/
+*.bak
+*.old
+*.orig
+*.rej
+*.log
+
+# Release archives under VERSIONS/ are intentionally tracked.
+# Do not add a global *.zip or *.tar.gz rule here.

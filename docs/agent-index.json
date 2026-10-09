@@ -4,6 +4,7 @@
   "last_reviewed": "2026-10-07",
   "primary_languages_and_tooling": [
     "Python asset conversion and validation scripts",
+    "Pillow for image processing when source images are present",
     "PowerShell Windows dry-run/apply/rollback scripts",
     "Bash Linux dry-run/apply/rollback scripts",
     "CSV mapping manifests",
@@ -17,6 +18,10 @@
     "local_environment": ".codex/environments/environment.toml",
     "root_index": "00_Index.md",
     "agent_instructions": "AGENTS.md",
+    "contributing": "CONTRIBUTING.md",
+    "security": "SECURITY.md",
+    "support": "SUPPORT.md",
+    "changelog": "CHANGELOG.md",
     "docs": "docs/",
     "proof": "proof/",
     "reports": "reports/",
@@ -43,6 +48,10 @@
     "README.md",
     "00_Index.md",
     "AGENTS.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "SUPPORT.md",
+    "CHANGELOG.md",
     "docs/INDEX.md",
     "docs/project-overview.md",
     "docs/agent-workflow.md",
@@ -56,6 +65,18 @@
     ".agent/project.yaml",
     "docs/agent-workflow.md"
   ],
+  "work_management": {
+    "technical_truth": "Current repository source, configuration, mappings, scripts, assets, and verification evidence.",
+    "operational_truth": "Current GitHub Issues and pull requests.",
+    "material_workflow": [
+      "Issue / work object",
+      "branch",
+      "implementation",
+      "verification",
+      "pull request"
+    ],
+    "merge_release_deploy_require_explicit_authority": true
+  },
   "source_areas": [
     {
       "path": "source/master/raster",
@@ -92,7 +113,7 @@
     "docs/proof-checklist.md"
   ],
   "docs_safe_checks": [
-    "git status --short",
+    "git status --short --branch",
     "git diff --check",
     "python3 -m json.tool docs/agent-index.json",
     "python3 scripts/validate/validate_agent_toolkit.py"
@@ -113,8 +134,9 @@
   ],
   "mutating_proof_command_notes": [
     "Conversion commands with --apply write generated assets.",
-    "Contact sheet rendering with --apply writes generated contact sheets.",
-    "Validation and dry-run proof commands can append to or rewrite files under proof/."
+    "Contact-sheet rendering with --apply writes generated contact sheets.",
+    "Validation and dry-run proof commands can append to or rewrite files under proof/.",
+    "scripts/validate/validate_mappings.py currently rewrites proof/known-gaps.md with obsolete skeleton-era text; see GitHub Issue #7 before using it to regenerate current proof."
   ],
   "dry_run_commands": [
     "powershell -ExecutionPolicy Bypass -File scripts/dry-run/windows_plan_changes.ps1",
@@ -155,8 +177,9 @@
     "docs/decisions.md"
   ],
   "safety_rules": [
-    "Preserve runtime and product behavior unless explicitly asked to change it.",
-    "Do not run live OS apply or rollback commands without an explicit user request.",
+    "Preserve product behavior unless the work item explicitly asks to change it.",
+    "Do not run live OS apply or apply-rollback commands without an explicit user request.",
+    "An apply gate is an authorization guard, not proof of safe behavior.",
     "Do not edit or regenerate VERSIONS/ release archives unless explicitly requested.",
     "Treat source/config/scripts/mappings/assets as higher truth than docs when conflicts appear.",
     "Mark inferred information clearly.",
@@ -166,7 +189,7 @@
   "sensitive_path_rules": [
     "Keep .obsidian/ ignored and untracked.",
     "Do not include secrets, credentials, tokens, private keys, private URLs, account identifiers, .env contents, or sensitive local paths in docs or indexes.",
-    "Do not add Obsidian sync, cloud sharing, account coupling, encryption setup, or company integrations."
+    "Do not add Obsidian sync, cloud sharing, account coupling, encryption setup, or company integrations unless explicitly requested."
   ],
   "obsidian_conventions": {
     "canonical_links": "Use normal Markdown links in committed docs.",
@@ -183,43 +206,6 @@
       "handoffs/INDEX.md"
     ]
   },
-  "tag_taxonomy": {
-    "global_tags": [
-      "#repo/index",
-      "#repo/architecture",
-      "#repo/development",
-      "#repo/testing",
-      "#repo/security",
-      "#repo/release",
-      "#repo/decision",
-      "#repo/source-map",
-      "#repo/connection-map",
-      "#agent/orientation",
-      "#agent/handoff",
-      "#agent/report",
-      "#obsidian/local",
-      "#obsidian/graph"
-    ],
-    "repo_tags": [
-      "#sauriil/theme",
-      "#sauriil/assets",
-      "#sauriil/v0-0-2",
-      "#sauriil/windows",
-      "#sauriil/linux",
-      "#sauriil/kde",
-      "#sauriil/mappings",
-      "#sauriil/proof",
-      "#sauriil/rollback",
-      "#sauriil/release-archive"
-    ],
-    "forbidden_tags": [
-      "#obsidian/sync",
-      "#deployment/cloud",
-      "#windows/live-registry-applied",
-      "#linux/system-install",
-      "#security/guarantee"
-    ]
-  },
   "known_risks": [
     "Linux apply replaces the theme before dependency and required desktop override validation; all four required override paths are empty. Fix preflight before live qualification.",
     "Python/Python3 and PowerShell are absent from the reviewed shell PATH; environment Python actions need a runtime prerequisite.",
@@ -228,6 +214,16 @@
     "Proof generators can mutate proof files.",
     "Release ZIP archives under VERSIONS/ should be preserved unless explicitly requested.",
     "There is no package manifest, Makefile, CI workflow, or unit-test framework."
+  ],
+  "owner_decisions": [
+    {
+      "issue": 11,
+      "topics": [
+        "repository license",
+        "Code of Conduct selection",
+        "private vulnerability-reporting route"
+      ]
+    }
   ],
   "omitted_artifacts": [
     {
