@@ -72,3 +72,26 @@ Do not use tags that imply unsupported behavior:
 - Tag durable hubs, reports, and handoffs.
 - Do not tag every generated proof row or CSV-derived fact.
 - Use tags to create graph clusters, not to replace direct Markdown links.
+
+<!-- local-graph-scope-2026-07-21:start -->
+## Default Local Graph View
+
+The local `.obsidian/graph.json` uses this knowledge-only Global Graph filter:
+
+```text
+path:docs OR path:DOCUMENTATION OR path:reports OR path:handoffs OR file:00_Index OR file:AGENTS
+```
+
+| Control | Local default | Purpose |
+| --- | --- | --- |
+| Attachments | off | Removes source, media, generated, dependency, and evidence-file noise. |
+| Tags | off | Keeps normal Markdown links as the visible relationship model. |
+| Existing files only | on | Hides unresolved targets until a real note exists. |
+| Orphans | on | Keeps genuine degree-zero Markdown notes visible for maintenance. |
+
+The filter keeps maintained documentation, evidence, handoffs, and stable root hubs visible while source, dependencies, generated output, and attachments stay outside the normal knowledge view.
+
+A large outer ring of isolated colored nodes usually means attachments were enabled with an empty or overly broad filter; it does not by itself prove missing documentation backlinks. Keep Orphans enabled, classify each remaining Markdown orphan, and connect it through the narrowest real owner, archive, report, handoff, release, or specification index. Do not create decorative backlinks only to improve the metric.
+
+The graph JSON is local UI state, not repository truth. If an old force layout remains visible after this setting changes, close and reopen Global Graph once so Obsidian reloads the filter. Re-run the Markdown link/component audit after adding or moving documentation.
+<!-- local-graph-scope-2026-07-21:end -->

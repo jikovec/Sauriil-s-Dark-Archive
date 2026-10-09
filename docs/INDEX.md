@@ -6,6 +6,7 @@ This is the GitHub-compatible documentation hub for Sauriil Dark Archive. The ro
 
 ## Start Here
 
+- [Project agent workflow](agent-workflow.md)
 - [Project overview](project-overview.md)
 - [Current state](current-state.md)
 - [Architecture](architecture.md)
@@ -63,4 +64,18 @@ Licensing, Code of Conduct selection, and a private vulnerability-reporting rout
 - Keep links relative to the current file.
 - Prefer normal Markdown links over Obsidian-only wiki links inside `docs/`.
 - Keep tags on durable hubs and reports, not generated proof detail rows.
-- Update [agent-index.json](agent-index.json) after meaningful changes to commands, paths, risks, work routing, tags, or entry points.
+- Update [agent-index.json](agent-index.json) after meaningful changes to commands, paths, risks, tags, or entry points.
+
+## Repository agent toolkit
+
+- [Canonical toolkit](../.agent/README.md)
+- [Stable project metadata](../.agent/project.yaml)
+- [Project workflow](../skills/project/sauriil-dark-archive-workflow/SKILL.md)
+- [Routing evaluations](../.agent/evals/skill-routing.md)
+
+Inspect live related Issues, PRs and required checks before reconstructing unfinished work.
+
+## Planned integrations
+
+- [NightTab guide](../integrations/nighttab/README.md)
+- [NightTab baseline and architecture](../reports/2026-09-06-nighttab-integration-baseline-and-architecture.md)

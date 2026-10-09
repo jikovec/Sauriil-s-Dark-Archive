@@ -3,11 +3,31 @@
 
 #repo/index #sauriil/v0-0-2
 
-Last reviewed: 2026-09-30 against `main@1246dde9fa9956351bfd54fe43ccae2da1217c3a`.
+Last reviewed: 2026-10-09 (Claude invocation gate only; asset proof not rerun).
+
+## Agent Toolkit
+
+The [portable toolkit](../.agent/README.md) provides eleven baseline workflows and
+one reconciled theme workflow under `skills/`. Stable metadata lives in
+[.agent/project.yaml](../.agent/project.yaml); native adapters contain no policy.
+Codex uses `.agents/skills/`, `.codex/skills/` provides a compatibility pointer, and
+Claude uses `.claude/skills/` plus the AGENTS import in `CLAUDE.md`. Claude loads
+`release`, `deploy` and `publish` only on an explicit `/release`, `/deploy` or
+`/publish` (`disable-model-invocation: true` in those three adapters).
+
+Mind-Seed is disabled: bounded registry discovery found no matching entry and no
+verified memory-scope binding. No mutable memory is stored in Git or written by
+this setup. See [bootstrap evidence](../reports/2026-10-07-agent-toolkit-bootstrap.md).
+
+The owner-adopted authorization contract covers ordinary requested source delivery
+through merge. Explicit release/archive and target-OS boundaries remain. Retrieve
+live Issues and PRs for work state; PR #12 overlaps governance files and was kept
+separate during bootstrap. Historical safety proof below is not live qualification;
+Issues #1–#8 track existing source/proof/archive concerns.
 
 ## Project Purpose
 
-Sauriil Dark Archive is a cross-platform icon-theme asset, conversion, platform-output, and proof project for Windows 11 and Arch Linux/KDE Plasma.
+**Sauriil’s theme** is the display name of this Sauriil Dark Archive non-destructive cross-platform icon-theme asset project for Windows 11 and Arch Linux/KDE Plasma. Elder Scrolls gameplay and creative lore remain separate. See the [current project card](project-overview.md) for ownership, commands, tools, lifecycle and gaps.
 
 ## Current Release State
 
@@ -73,8 +93,18 @@ Repository source/configuration and current verification evidence are technical 
 
 ## Command Boundary
 
-See [commands.md](commands.md) and [testing.md](testing.md). Conversion/contact-sheet commands can write generated assets; several validators write proof files. Live apply/apply-rollback commands are not repository validation commands and require explicit authorization.
+Current continuation material is indexed under [handoffs/INDEX.md](../handoffs/INDEX.md), including the existing NightTab export gate. The [2026-09-09 orientation report](../reports/2026-09-09-project-orientation.md) is the durable handoff for this completed local task.
 
 ## Owner Decisions
 
-The repository currently has no selected license, Code of Conduct, or published private vulnerability-reporting route. These decisions are tracked in [#11](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/11).
+- Live Windows apply, Linux install, and rollback apply behavior are not proven by current proof reports.
+- Some historical docs under `DOCUMENTATION/` may use skeleton-era wording.
+- No package manifest or CI workflow exists, so verification is script and docs driven.
+- Release archives remain protected; historical archive observations are not a current dirty-state assertion.
+- Linux apply can partially replace the user theme before dependency/mapping failure; see the project card.
+- Current shell PATH lacks Python/Python3 and PowerShell. Existing environment actions are defined, but Python actions are not ready on this PATH.
+
+
+## NightTab baseline — 2026-09-06
+
+NightTab is researched/planned, not implemented or live-applied. Architecture: **NATIVE_CONFIGURATION_PLUS_SAURIIL_ASSETS**; fork **NOT REQUIRED** for the bounded proposal. Installed/persisted version is 7.3.0; current upstream main is 7.6.0, while AMO/latest GitHub release remains 7.3.0. Personal state remains outside Git. Private SQLite preservation is verified; supported current native export still requires a human step. This is separate from icon releases. See the [report](../reports/2026-09-06-nighttab-integration-baseline-and-architecture.md), [integration](../integrations/nighttab/README.md) and [handoff](../handoffs/2026-09-06-nighttab-native-export.md). Earlier no-handoff statements above describe their historical review.

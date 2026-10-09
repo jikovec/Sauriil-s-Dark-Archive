@@ -1,7 +1,7 @@
 {
   "repo_name": "Sauriil-s-Dark-Archive",
-  "repo_purpose": "Cross-platform icon-theme asset, conversion, platform-output, documentation, and proof project for Windows 11 and Arch Linux/KDE Plasma.",
-  "last_reviewed": "2026-09-30",
+  "repo_purpose": "Non-destructive cross-platform icon-theme asset project for Windows 11 and Arch Linux/KDE Plasma.",
+  "last_reviewed": "2026-10-07",
   "primary_languages_and_tooling": [
     "Python asset conversion and validation scripts",
     "Pillow for image processing when source images are present",
@@ -12,6 +12,10 @@
     "Markdown documentation"
   ],
   "important_paths": {
+    "project_card": "docs/project-overview.md",
+    "agent_workflow": "docs/agent-workflow.md",
+    "local_skill": ".agents/skills/sauriil-dark-archive-workflow/SKILL.md",
+    "local_environment": ".codex/environments/environment.toml",
     "root_index": "00_Index.md",
     "agent_instructions": "AGENTS.md",
     "contributing": "CONTRIBUTING.md",
@@ -28,7 +32,17 @@
     "scripts": "scripts/",
     "windows_outputs": "windows/",
     "linux_outputs": "linux/",
-    "release_archives": "VERSIONS/"
+    "release_archives": "VERSIONS/",
+    "project_metadata": ".agent/project.yaml",
+    "agent_toolkit": ".agent/README.md",
+    "canonical_skills": "skills/",
+    "project_skill": "skills/project/sauriil-dark-archive-workflow/SKILL.md",
+    "codex_discovery": ".agents/skills/",
+    "codex_compatibility": ".codex/skills/",
+    "claude_discovery": ".claude/skills/",
+    "claude_instructions": "CLAUDE.md",
+    "agent_workflow": "docs/agent-workflow.md",
+    "toolkit_validator": "scripts/validate/validate_agent_toolkit.py"
   },
   "docs_entry_points": [
     "README.md",
@@ -39,12 +53,17 @@
     "SUPPORT.md",
     "CHANGELOG.md",
     "docs/INDEX.md",
+    "docs/project-overview.md",
+    "docs/agent-workflow.md",
     "docs/current-state.md",
     "docs/agent-index.md",
     "docs/source-map.md",
     "docs/connections.md",
     "reports/INDEX.md",
-    "handoffs/INDEX.md"
+    "handoffs/INDEX.md",
+    ".agent/README.md",
+    ".agent/project.yaml",
+    "docs/agent-workflow.md"
   ],
   "work_management": {
     "technical_truth": "Current repository source, configuration, mappings, scripts, assets, and verification evidence.",
@@ -96,8 +115,8 @@
   "docs_safe_checks": [
     "git status --short --branch",
     "git diff --check",
-    "python -m json.tool docs/agent-index.json",
-    "Markdown relative-link scan over changed documentation"
+    "python3 -m json.tool docs/agent-index.json",
+    "python3 scripts/validate/validate_agent_toolkit.py"
   ],
   "conversion_and_proof_commands": [
     "python scripts/convert/normalize_pngs.py --apply",
@@ -141,15 +160,31 @@
       "requires_explicit_user_request": true
     }
   ],
+  "report_locations": [
+    "reports/INDEX.md",
+    "reports/2026-09-09-project-orientation.md",
+    "reports/2026-07-09-docs-indexing-hardening.md",
+    "reports/obsidian-agent-indexing-plan.md",
+    "reports/2026-07-09-docs-indexing-implementation.md",
+    "reports/2026-07-07-memory-workflow-validation.md",
+    "reports/multi-repo-finalization-2026-07-07.md",
+    "reports/2026-10-07-agent-toolkit-bootstrap.md"
+  ],
+  "handoff_locations": [
+    "handoffs/INDEX.md"
+  ],
+  "decision_locations": [
+    "docs/decisions.md"
+  ],
   "safety_rules": [
     "Preserve product behavior unless the work item explicitly asks to change it.",
     "Do not run live OS apply or apply-rollback commands without an explicit user request.",
     "An apply gate is an authorization guard, not proof of safe behavior.",
     "Do not edit or regenerate VERSIONS/ release archives unless explicitly requested.",
-    "Preserve unrelated dirty and untracked work.",
-    "Do not merge, deploy, publish, release, or tag unless explicitly authorized.",
-    "Treat current source/configuration and verification evidence as higher technical truth than documentation when conflicts appear.",
-    "Mark inference clearly."
+    "Treat source/config/scripts/mappings/assets as higher truth than docs when conflicts appear.",
+    "Mark inferred information clearly.",
+    "Ordinary scoped source delivery through merge follows .agent/contracts/authorization.md; local-only requests narrow it. Release, archives and live OS operations require separate scope.",
+    "Memory is contextual; no automatic persistence or scope promotion."
   ],
   "sensitive_path_rules": [
     "Keep .obsidian/ ignored and untracked.",
@@ -172,14 +207,12 @@
     ]
   },
   "known_risks": [
-    "Linux apply can mutate the user theme before all required desktop-override inputs are validated; GitHub Issue #2.",
-    "Windows apply does not yet conform to the accepted stable-icon-storage and lossless-rollback contract; GitHub Issue #3.",
-    "Apply/rollback safety lacks non-destructive regression coverage; GitHub Issue #4.",
-    "Current captured proof lacks a Windows PowerShell dry-run execution; GitHub Issue #5.",
-    "Unmapped exporter contexts can fall back to unrelated assets; GitHub Issue #6.",
-    "Mapping validation can overwrite current known-gap evidence with obsolete skeleton text; GitHub Issue #7.",
-    "A protected WinRAR archive change on current main requires provenance review; GitHub Issue #8.",
-    "No repository license, Code of Conduct, or private security-reporting route is selected/published; GitHub Issue #11.",
+    "Linux apply replaces the theme before dependency and required desktop override validation; all four required override paths are empty. Fix preflight before live qualification.",
+    "Python/Python3 and PowerShell are absent from the reviewed shell PATH; environment Python actions need a runtime prerequisite.",
+    "Live Windows apply, Linux install, and apply rollback behavior are not proven by current proof reports.",
+    "Historical docs under DOCUMENTATION/ may contain skeleton-era wording.",
+    "Proof generators can mutate proof files.",
+    "Release ZIP archives under VERSIONS/ should be preserved unless explicitly requested.",
     "There is no package manifest, Makefile, CI workflow, or unit-test framework."
   ],
   "owner_decisions": [
@@ -195,11 +228,24 @@
   "omitted_artifacts": [
     {
       "path": ".agents/index.json",
-      "reason": "Omitted because the repo has no .agents/ convention and docs/agent-index.json is canonical."
+      "reason": "docs/agent-index.json provides navigation and .agent/project.yaml provides identity; .agents/skills contains discovery adapters only."
     },
     {
       "path": "docs/adr/",
       "reason": "Omitted because docs/decisions.md is sufficient for the current decision volume."
     }
-  ]
+  ],
+  "display_name": "Sauriil’s theme",
+  "nighttabIntegration": {
+  "status": "researched/planned; not implemented or live-applied",
+  "entry_point": "integrations/nighttab/README.md",
+  "report": "reports/2026-09-06-nighttab-integration-baseline-and-architecture.md",
+  "handoff": "handoffs/2026-09-06-nighttab-native-export.md",
+  "implementation_plan": "integrations/nighttab/docs/implementation-plan.md",
+  "architecture": "NATIVE_CONFIGURATION_PLUS_SAURIIL_ASSETS",
+  "fork": "NOT REQUIRED",
+  "firefox_target_version": "7.3.0",
+  "private_state_rule": "Personal exports, bookmarks, URLs, profile data and backups stay outside Git under the private NightTab authority.",
+  "gate": "BLOCKED_PENDING_HUMAN_NIGHTTAB_EXPORT"
+}
 }

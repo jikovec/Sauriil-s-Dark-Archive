@@ -48,4 +48,9 @@ Before implementation, re-check current source, mappings, live work state, and u
 - Obsidian sync/account setup.
 - System-wide Linux install.
 - Unrequested registry modification.
-- Editing release ZIP archives.
+- Editing release ZIP archives without explicit approval.
+
+
+## Separate planned NightTab integration
+
+Complete the supported private current export, then follow the [bounded implementation plan](../integrations/nighttab/docs/implementation-plan.md): native 7.3.0 tokens/preset qualification, preserved private candidate, optional original asset reuse, disposable import/rollback and visual tests. Live apply remains a later scoped operation. No fork required for the current proposal. This work is not included automatically in either icon release batch.

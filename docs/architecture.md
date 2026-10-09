@@ -46,6 +46,11 @@ Current implementation does not yet satisfy every accepted safety invariant. See
 
 ## Known Limits
 
-- No package manifest, Makefile, CI workflow, or unit-test framework.
-- `v0.0.2` uses raster PNG fallbacks and has no true scalable SVG assets.
-- Live apply/rollback remains a separately tracked, unproven boundary.
+- There is no package manifest, Makefile, CI workflow, or unit-test framework.
+- `v0.0.2` uses raster PNG fallbacks and does not include true scalable SVG assets.
+- Live OS apply and rollback behavior must be re-inspected before any future apply-capable run.
+
+
+## Planned NightTab surface
+
+[NightTab](../integrations/nighttab/README.md) remains the upstream runtime. Sauriil owns generic visual tokens, original assets and integration documentation; Aetheris UI is not the authority. Private configuration/exports remain outside the repository under `$HOME/.local/share/nighttab/`. Native configuration plus assets is selected; no fork required for the bounded design. No theme implementation or live application is claimed. See the [architecture evidence](../reports/2026-09-06-nighttab-integration-baseline-and-architecture.md).

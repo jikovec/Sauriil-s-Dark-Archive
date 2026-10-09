@@ -1,72 +1,85 @@
-# Agent Instructions
+# Sauriil's Dark Archive agent contract
 
-This repository is the Sauriil Dark Archive icon-theme asset/conversion/proof project. Preserve that project boundary. Live OS customization is never implied by routine repository work.
+## Identity and start
 
-## Required orientation
+This is **Sauriil’s theme**, the non-destructive Windows 11 and Arch Linux/KDE
+icon-theme asset, conversion and proof project, in `jikovec/Sauriil-s-Dark-Archive`.
+It is separate from Elder Scrolls gameplay and lore. Address the owner as Aetheris
+for project work and match the request's language.
+
+Stable project/repository identity and environment discovery live in
+[.agent/project.yaml](.agent/project.yaml). The toolkit map is
+[.agent/README.md](.agent/README.md). No provider adapter owns project policy.
 
 Before meaningful work:
 
-1. Inspect the current default branch and `git status --short --branch` in the working copy you will modify.
-2. Read [README.md](README.md), [00_Index.md](00_Index.md), [docs/INDEX.md](docs/INDEX.md), [docs/current-state.md](docs/current-state.md), and [docs/decisions.md](docs/decisions.md).
-3. Inspect current GitHub Issues and pull requests for operational work state and conflicts.
-4. Read task-specific source, scripts, mappings, proof, and documentation before changing them.
+1. [00_Index.md](00_Index.md) and [docs/INDEX.md](docs/INDEX.md).
+2. [docs/current-state.md](docs/current-state.md).
+3. [docs/decisions.md](docs/decisions.md).
+4. [docs/agent-index.md](docs/agent-index.md).
+5. The relevant canonical skill and applicable scoped instructions.
 
-Useful routes:
+## Authority and scope
 
-- Commands and verification: [docs/commands.md](docs/commands.md), [docs/testing.md](docs/testing.md), [docs/proof-checklist.md](docs/proof-checklist.md)
-- Architecture/source: [docs/architecture.md](docs/architecture.md), [docs/source-map.md](docs/source-map.md), [docs/connections.md](docs/connections.md)
-- Security/apply boundaries: [SECURITY.md](SECURITY.md), [docs/security-model.md](docs/security-model.md), [docs/deployment.md](docs/deployment.md), [docs/rollback.md](docs/rollback.md)
-- Contribution workflow: [CONTRIBUTING.md](CONTRIBUTING.md)
-- Reports/handoffs: [reports/INDEX.md](reports/INDEX.md), [handoffs/INDEX.md](handoffs/INDEX.md)
+Complete the assigned outcome, relevant verification and its authorized delivery.
+Preserve architecture, terminology and unrelated work; follow-ups normally steer
+that outcome. Record adjacent findings separately instead of broadening the task.
 
-## Authority
+The owner-adopted [authorization contract](.agent/contracts/authorization.md)
+grants ordinary source workflow for requested work in this user-owned repository,
+through commit, push, PR, checks/review remediation and merge. Local-only requests
+narrow that endpoint. Release, deployment, publication and OS activation require
+their own requested scope. Capability and identity labels do not grant authority.
 
-Use this order when sources disagree:
+This adoption supersedes the old blanket explicit-per-command Git prohibition
+for ordinary source delivery only. It preserves all protected asset, privacy,
+release and live-OS boundaries. Revalidate policy before consequential effects.
+Never bypass external protections, required reviews, IAM or provider controls.
 
-1. Current source/configuration/scripts/mappings/assets and repository state.
-2. Verification evidence from checks actually run against the relevant revision.
-3. Active canonical documentation under the repository root and `docs/`.
-4. Historical reports and `DOCUMENTATION/`.
-5. Clearly identified inference.
+## Evidence and preservation
 
-GitHub Issues and pull requests are the operational work ledger: they describe current/queued work, not technical implementation truth. Re-check both before making work-state claims.
+Inspect source and current Git state before changes. Retrieve live GitHub Issues,
+PRs and relevant checks before reconstructing work; reports are historical context.
+[Core](.agent/contracts/core.md) defines technical evidence and preservation;
+[Git/GitHub](.agent/contracts/git-github.md) defines source delivery.
 
-Do not convert accepted target plans into implementation claims. Current apply-path defects are tracked in GitHub; an apply gate alone is not proof of safe behavior.
+Preserve unrelated dirty, untracked and concurrent work. Use isolation when needed;
+never broadly stage, reset, stash, discard or rewrite protected history by default.
+Use bounded independent agents only when delegation is permitted and useful;
+retain responsibility for integration and final verification.
 
-## Work and delivery
+Do not fabricate results. Distinguish local candidate, commit, remote source,
+hosted checks, deployment identity and observed live acceptance.
 
-For material work, follow:
+## Project invariants
 
-```text
-Issue / work object
-→ branch
-→ implementation
-→ verification
-→ pull request
-```
+- Preserve product/runtime behavior unless a behavior change is requested.
+- Keep original raster assets and their conversion provenance; no fake SVG wrapping.
+- Do not inspect, edit or regenerate `VERSIONS/` without explicit archive scope.
+- Proof/conversion commands can write assets and evidence; run only within that scope.
+- Live apply and rollback require explicit target-OS scope and current script review.
+- Windows apply requires `-Apply`; Linux apply requires `--apply` and stays user-scoped.
+- Do not write system icon directories or infer live safety from historical proof.
+- Keep `.obsidian/` ignored, local and plaintext; no sync/account/cloud integration.
+- Never commit secrets, private exports, account IDs or sensitive machine paths.
 
-- Preserve unrelated dirty and untracked work.
-- Do not reset, stash, discard, or rewrite unrelated changes.
-- Perform external mutations only when the current task explicitly authorizes them.
-- Do not merge, deploy, publish, release, or tag unless that effect is explicitly authorized.
-- Do not edit or regenerate `VERSIONS/` archives unless release-archive work is explicitly in scope.
+## Discovery and checks
 
-## Verification
+Canonical skills are under [skills/](skills/); reusable project reasoning is under
+[skills/project/](skills/project/). Codex adapters use `.agents/skills/`, with
+a `.codex/skills/` compatibility pointer; Claude adapters use `.claude/skills/`.
+`CLAUDE.md` imports this file. Adapters must point to canonical content.
 
-- Run the smallest relevant checks from [docs/testing.md](docs/testing.md).
-- Never report an unavailable or unrun check as passing.
-- Proof/conversion commands can mutate generated assets or `proof/`; run them only when regeneration is in scope.
-- Live Windows/Linux apply or apply-rollback commands are not validation commands and require explicit authorization.
+Use [commands](docs/commands.md), [testing](docs/testing.md) and the
+[asset-proof workflow](.agent/workflows/asset-proof.md) for relevant native tools.
+Missing runtimes are blocked prerequisites, not successful checks. For toolkit
+edits, run `python3 scripts/validate/validate_agent_toolkit.py` and `git diff --check`.
 
-## Security and privacy
+Load [memory](.agent/contracts/memory.md) and [scopes](.agent/contracts/scopes.md)
+only for persistent context, registry, cross-project or promotion work. Memory is
+context, never current authority. Provider availability does not enroll a project.
 
-- Never add secrets, credentials, tokens, private keys, `.env` contents, private URLs, account identifiers, or sensitive local machine state.
-- Keep `.obsidian/` ignored and untracked.
-- Do not add Obsidian sync, cloud sharing, account coupling, encryption setup, or company integrations unless explicitly requested.
-- Follow [SECURITY.md](SECURITY.md) for vulnerability material.
-
-## Documentation obligations
-
-After meaningful changes, update only the canonical documents affected. Keep [docs/agent-index.json](docs/agent-index.json) aligned when entry points, commands, paths, work routing, or known risks change. Prefer links over duplicated prose.
-
-Historical evidence should remain historically accurate; add a supersession note rather than rewriting history.
+After meaningful routing changes update `docs/current-state.md` and
+`docs/agent-index.json`; record decisions in `docs/decisions.md`, durable evidence
+in `reports/`, and unfinished work in `handoffs/`. Use the
+[handoff contract](.agent/contracts/handoff.md) to report the actual endpoint.

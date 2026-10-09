@@ -80,22 +80,19 @@ An explicit `-Apply` or `--apply` gate is an authorization guard, not evidence t
 
 Start with:
 
-- [00_Index.md](00_Index.md) — repository/Obsidian hub
-- [AGENTS.md](AGENTS.md) — automated-agent rules
-- [docs/INDEX.md](docs/INDEX.md) — active documentation hub
-- [docs/current-state.md](docs/current-state.md) — current technical state
-- [docs/testing.md](docs/testing.md) — verification model
-- [docs/deployment.md](docs/deployment.md) — release/apply boundaries
-- [CHANGELOG.md](CHANGELOG.md) — documented version changes
+- `00_Index.md`
+- `docs/INDEX.md`
+- `docs/agent-index.md`
+- `docs/source-map.md`
+- `docs/connections.md`
+- `docs/v0.0.2-asset-batch.md`
+- `proof/v0.0.2-source-asset-inventory.md`
+- `proof/v0.0.2-generated-assets.md`
+- `proof/v0.0.2-contact-sheet-report.md`
+- `proof/v0.0.2-validation-report.md`
+- `proof/known-gaps.md`
 
-## Contributing, support, and security
 
-- [CONTRIBUTING.md](CONTRIBUTING.md)
-- [SUPPORT.md](SUPPORT.md)
-- [SECURITY.md](SECURITY.md)
+## Planned NightTab integration
 
-Operational work state lives in current GitHub Issues and pull requests, not in remembered conversations or historical reports.
-
-## License
-
-No repository license is currently selected or published. Owner decision [#11](https://github.com/jikovec/Sauriil-s-Dark-Archive/issues/11) tracks licensing and related public-policy decisions. Do not assume reuse or redistribution rights that have not been granted.
+NightTab is a researched new integration surface, separate from v0.0.2 and the candidate v0.0.3 icon batch. See the [integration guide](integrations/nighttab/README.md). No theme has been implemented or live-applied; personal browser state stays private outside Git.

@@ -48,3 +48,8 @@
 - Docs hub: [INDEX.md](INDEX.md).
 - Agent guide: [agent-index.md](agent-index.md).
 - Machine index: [agent-index.json](agent-index.json).
+
+
+## NightTab ownership and preservation
+
+[Existing identity and assets](asset-guidelines.md) inform the [NightTab specification](../integrations/nighttab/docs/visual-specification.md). [Research evidence](../reports/2026-09-06-nighttab-integration-baseline-and-architecture.md) routes to the [implementation plan](../integrations/nighttab/docs/implementation-plan.md) and [export handoff](../handoffs/2026-09-06-nighttab-native-export.md). Runtime belongs to upstream NightTab; generic visual material belongs to Sauriil; personal exports/configuration remain external and private.
