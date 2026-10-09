@@ -6,6 +6,7 @@ This is the GitHub-compatible documentation hub for Sauriil Dark Archive. The ro
 
 ## Start Here
 
+- [Project agent workflow](agent-workflow.md)
 - [Project overview](project-overview.md)
 - [Current state](current-state.md)
 - [Architecture](architecture.md)
@@ -64,3 +65,8 @@ This is the GitHub-compatible documentation hub for Sauriil Dark Archive. The ro
 - [Routing evaluations](../.agent/evals/skill-routing.md)
 
 Inspect live related Issues, PRs and required checks before reconstructing unfinished work.
+
+## Planned integrations
+
+- [NightTab guide](../integrations/nighttab/README.md)
+- [NightTab baseline and architecture](../reports/2026-09-06-nighttab-integration-baseline-and-architecture.md)

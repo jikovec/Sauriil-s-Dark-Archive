@@ -11,6 +11,10 @@
     "Markdown documentation"
   ],
   "important_paths": {
+    "project_card": "docs/project-overview.md",
+    "agent_workflow": "docs/agent-workflow.md",
+    "local_skill": ".agents/skills/sauriil-dark-archive-workflow/SKILL.md",
+    "local_environment": ".codex/environments/environment.toml",
     "root_index": "00_Index.md",
     "agent_instructions": "AGENTS.md",
     "docs": "docs/",
@@ -40,6 +44,8 @@
     "00_Index.md",
     "AGENTS.md",
     "docs/INDEX.md",
+    "docs/project-overview.md",
+    "docs/agent-workflow.md",
     "docs/current-state.md",
     "docs/agent-index.md",
     "docs/source-map.md",
@@ -134,6 +140,7 @@
   ],
   "report_locations": [
     "reports/INDEX.md",
+    "reports/2026-09-09-project-orientation.md",
     "reports/2026-07-09-docs-indexing-hardening.md",
     "reports/obsidian-agent-indexing-plan.md",
     "reports/2026-07-09-docs-indexing-implementation.md",
@@ -214,6 +221,8 @@
     ]
   },
   "known_risks": [
+    "Linux apply replaces the theme before dependency and required desktop override validation; all four required override paths are empty. Fix preflight before live qualification.",
+    "Python/Python3 and PowerShell are absent from the reviewed shell PATH; environment Python actions need a runtime prerequisite.",
     "Live Windows apply, Linux install, and apply rollback behavior are not proven by current proof reports.",
     "Historical docs under DOCUMENTATION/ may contain skeleton-era wording.",
     "Proof generators can mutate proof files.",
@@ -230,5 +239,17 @@
       "reason": "Omitted because docs/decisions.md is sufficient for the current decision volume."
     }
   ],
-  "display_name": "Sauriil’s theme"
+  "display_name": "Sauriil’s theme",
+  "nighttabIntegration": {
+  "status": "researched/planned; not implemented or live-applied",
+  "entry_point": "integrations/nighttab/README.md",
+  "report": "reports/2026-09-06-nighttab-integration-baseline-and-architecture.md",
+  "handoff": "handoffs/2026-09-06-nighttab-native-export.md",
+  "implementation_plan": "integrations/nighttab/docs/implementation-plan.md",
+  "architecture": "NATIVE_CONFIGURATION_PLUS_SAURIIL_ASSETS",
+  "fork": "NOT REQUIRED",
+  "firefox_target_version": "7.3.0",
+  "private_state_rule": "Personal exports, bookmarks, URLs, profile data and backups stay outside Git under the private NightTab authority.",
+  "gate": "BLOCKED_PENDING_HUMAN_NIGHTTAB_EXPORT"
+}
 }

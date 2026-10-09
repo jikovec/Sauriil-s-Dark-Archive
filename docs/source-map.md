@@ -57,3 +57,12 @@
 - [../proof/v0.0.2-generated-assets.md](../proof/v0.0.2-generated-assets.md)
 - [../proof/v0.0.2-contact-sheet-report.md](../proof/v0.0.2-contact-sheet-report.md)
 - [../proof/v0.0.2-validation-report.md](../proof/v0.0.2-validation-report.md)
+
+
+## Planned NightTab integration
+
+- [Integration entry point](../integrations/nighttab/README.md) — researched/planned native integration.
+- [Visual proposal](../integrations/nighttab/docs/visual-specification.md) — proposed tokens and generic asset reuse.
+- [Implementation plan](../integrations/nighttab/docs/implementation-plan.md) — future file paths, private boundary and qualification gates.
+
+No presets, copied icons, backgrounds or integration scripts are implemented yet; private browser state is never a source area in this repository.

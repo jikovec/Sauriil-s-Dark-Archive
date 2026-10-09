@@ -57,3 +57,8 @@
 - [asset-guidelines.md](asset-guidelines.md)
 - [obsidian.md](obsidian.md)
 - [../proof/known-gaps.md](../proof/known-gaps.md)
+
+
+## 2026-09-06 — NightTab integration authority
+
+Decision: **NATIVE_CONFIGURATION_PLUS_SAURIIL_ASSETS**; fork **NOT REQUIRED** for the bounded native design. NightTab stays upstream-owned; Sauriil owns reusable generic visual material. Aetheris UI is not NightTab theme authority. Keep all personal state outside Git. Theme import replaces the full theme, so preservation of private background/saved themes must be explicit. Asset transport and rendered fit need disposable validation. See [evidence](../reports/2026-09-06-nighttab-integration-baseline-and-architecture.md).

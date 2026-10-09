@@ -88,3 +88,8 @@ Start with:
 - `proof/v0.0.2-contact-sheet-report.md`
 - `proof/v0.0.2-validation-report.md`
 - `proof/known-gaps.md`
+
+
+## Planned NightTab integration
+
+NightTab is a researched new integration surface, separate from v0.0.2 and the candidate v0.0.3 icon batch. See the [integration guide](integrations/nighttab/README.md). No theme has been implemented or live-applied; personal browser state stays private outside Git.
