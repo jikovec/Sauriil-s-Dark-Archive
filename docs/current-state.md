@@ -3,7 +3,7 @@
 
 #repo/index #sauriil/v0-0-2
 
-Last reviewed: 2026-10-07 (agent toolkit/source routing only; asset proof not rerun).
+Last reviewed: 2026-10-09 (Claude invocation gate only; asset proof not rerun).
 
 ## Agent Toolkit
 
@@ -11,7 +11,9 @@ The [portable toolkit](../.agent/README.md) provides eleven baseline workflows a
 one reconciled theme workflow under `skills/`. Stable metadata lives in
 [.agent/project.yaml](../.agent/project.yaml); native adapters contain no policy.
 Codex uses `.agents/skills/`, `.codex/skills/` provides a compatibility pointer, and
-Claude uses `.claude/skills/` plus the AGENTS import in `CLAUDE.md`.
+Claude uses `.claude/skills/` plus the AGENTS import in `CLAUDE.md`. Claude loads
+`release`, `deploy` and `publish` only on an explicit `/release`, `/deploy` or
+`/publish` (`disable-model-invocation: true` in those three adapters).
 
 Mind-Seed is disabled: bounded registry discovery found no matching entry and no
 verified memory-scope binding. No mutable memory is stored in Git or written by
