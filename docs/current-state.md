@@ -27,7 +27,7 @@ Issues #1–#8 track existing source/proof/archive concerns.
 
 ## Project Purpose
 
-Sauriil’s theme (Sauriil Dark Archive) is a non-destructive cross-platform icon-theme asset project for Windows 11 and Arch Linux/KDE Plasma.
+**Sauriil’s theme** is the display name of this Sauriil Dark Archive non-destructive cross-platform icon-theme asset project for Windows 11 and Arch Linux/KDE Plasma. Elder Scrolls gameplay and creative lore remain separate. See the [current project card](project-overview.md) for ownership, commands, tools, lifecycle and gaps.
 
 ## Current Release State
 
@@ -90,11 +90,18 @@ Apply-capable commands remain opt-in:
 - [../reports/multi-repo-finalization-2026-07-07.md](../reports/multi-repo-finalization-2026-07-07.md)
 - [../handoffs/INDEX.md](../handoffs/INDEX.md)
 
-No task-specific handoff files are currently present under `handoffs/`.
+Current continuation material is indexed under [handoffs/INDEX.md](../handoffs/INDEX.md), including the existing NightTab export gate. The [2026-09-09 orientation report](../reports/2026-09-09-project-orientation.md) is the durable handoff for this completed local task.
 
 ## Open Unknowns
 
 - Live Windows apply, Linux install, and rollback apply behavior are not proven by current proof reports.
 - Some historical docs under `DOCUMENTATION/` may use skeleton-era wording.
 - No package manifest or CI workflow exists, so verification is script and docs driven.
-- Release ZIP archives are present and one pre-existing archive modification was observed before this docs/indexing implementation pass.
+- Release archives remain protected; historical archive observations are not a current dirty-state assertion.
+- Linux apply can partially replace the user theme before dependency/mapping failure; see the project card.
+- Current shell PATH lacks Python/Python3 and PowerShell. Existing environment actions are defined, but Python actions are not ready on this PATH.
+
+
+## NightTab baseline — 2026-09-06
+
+NightTab is researched/planned, not implemented or live-applied. Architecture: **NATIVE_CONFIGURATION_PLUS_SAURIIL_ASSETS**; fork **NOT REQUIRED** for the bounded proposal. Installed/persisted version is 7.3.0; current upstream main is 7.6.0, while AMO/latest GitHub release remains 7.3.0. Personal state remains outside Git. Private SQLite preservation is verified; supported current native export still requires a human step. This is separate from icon releases. See the [report](../reports/2026-09-06-nighttab-integration-baseline-and-architecture.md), [integration](../integrations/nighttab/README.md) and [handoff](../handoffs/2026-09-06-nighttab-native-export.md). Earlier no-handoff statements above describe their historical review.

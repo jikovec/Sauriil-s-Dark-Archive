@@ -1,0 +1,39 @@
+# Local project actions. Automatic setup and cleanup have no side effects.
+version = 1
+name = "Sauriil's Dark Archive"
+
+[setup]
+script = ""
+
+[cleanup]
+script = ""
+
+[[actions]]
+name = "Inspect current Git state"
+icon = "tool"
+command = "git status --short --branch"
+platform = "linux"
+
+[[actions]]
+name = "Check patch whitespace"
+icon = "tool"
+command = "git diff --check"
+platform = "linux"
+
+[[actions]]
+name = "Validate theme structure"
+icon = "test"
+command = "python3 scripts/validate/validate_structure.py"
+platform = "linux"
+
+[[actions]]
+name = "Validate mappings"
+icon = "test"
+command = "python3 scripts/validate/validate_mappings.py"
+platform = "linux"
+
+[[actions]]
+name = "Validate theme index"
+icon = "test"
+command = "python3 scripts/validate/validate_index_theme.py"
+platform = "linux"

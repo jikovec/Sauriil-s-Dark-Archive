@@ -46,3 +46,7 @@ Use [agent-index.json](agent-index.json) for machine-readable routing. Update it
 - [Routing evaluations](../.agent/evals/skill-routing.md)
 
 Inspect live related Issues, PRs and required checks before reconstructing unfinished work.
+
+## NightTab task routing
+
+Start with the [integration guide](../integrations/nighttab/README.md), [evidence](../reports/2026-09-06-nighttab-integration-baseline-and-architecture.md) and [native-export handoff](../handoffs/2026-09-06-nighttab-native-export.md). Current scope is planned/researched only. Never place personal exports, bookmark data, URLs or profile state in Git. Use the installed Firefox version and explicit import-category preservation rules.

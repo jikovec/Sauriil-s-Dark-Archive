@@ -6,6 +6,8 @@ This repo root is configured as a local Obsidian vault for project documentation
 
 ## Start Here
 
+- [Sauriil’s theme — project card](docs/project-overview.md)
+- [Project agent workflow](docs/agent-workflow.md)
 - [README.md](README.md)
 - [AGENTS.md](AGENTS.md)
 - [docs/INDEX.md](docs/INDEX.md)
@@ -86,3 +88,8 @@ This repo root is configured as a local Obsidian vault for project documentation
 - [Routing evaluations](.agent/evals/skill-routing.md)
 
 Inspect live related Issues, PRs and required checks before reconstructing unfinished work.
+
+## Planned integrations
+
+- [NightTab integration](integrations/nighttab/README.md)
+- [NightTab baseline and architecture](reports/2026-09-06-nighttab-integration-baseline-and-architecture.md)
