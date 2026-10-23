@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sauriil's Dark Archive workflow"
+  short_description: "Complete scoped project work and verification"
+  default_prompt: "Use $sauriil-dark-archive-workflow to finish the current scoped task and verify the result."
